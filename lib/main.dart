@@ -22,7 +22,7 @@ class Mapory extends StatelessWidget {
       title: 'Mapory',
       theme: ThemeData().copyWith(
         scaffoldBackgroundColor: Color(0xFFf1f4f9),
-        textTheme: GoogleFonts.interTextTheme().apply(
+        textTheme: GoogleFonts.montserratTextTheme().apply(
           bodyColor: Color(0xFF464747),
         ),
       ),
