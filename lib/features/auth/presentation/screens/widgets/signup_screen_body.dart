@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/functions/empty_validator.dart';
 import 'package:mapory/core/widgets/custom_app_button.dart';
+import 'package:mapory/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:mapory/features/auth/presentation/screens/widgets/text_field.dart';
 
 GlobalKey<FormState> _key = GlobalKey<FormState>();
@@ -57,11 +60,33 @@ class SignupScreenBody extends StatelessWidget {
                   validator: emptyValidator("password"),
                 ),
                 SizedBox(height: 20),
-                AppButton(
-                  text: "SignUp",
-                  onPressed: () {
-                    if (_key.currentState?.validate() ?? false) {
-                      print("Error Free");
+                BlocConsumer<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(color: KMainColor),
+                      );
+                    } else {
+                      return AppButton(
+                        text: "SignUp",
+                        onPressed: () {
+                          if (_key.currentState?.validate() ?? false) {
+                            context.read<AuthCubit>().signup(
+                              emailController.text,
+                              usernameController.text,
+                              passwordController.text,
+                            );
+                          }
+                        },
+                      );
+                    }
+                  },
+                  listener: (context, state) {
+                    if (state is AuthSignedUp) {
+                    } else if (state is AuthError) {
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.message)));
                     }
                   },
                 ),

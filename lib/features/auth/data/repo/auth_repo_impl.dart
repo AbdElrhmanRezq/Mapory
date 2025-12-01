@@ -10,11 +10,27 @@ class AuthRepoImpl implements AuthRepo {
   Future<Either<Failure, void>> login(String email, String password) async {
     try {
       await supabase.auth.signInWithPassword(email: email, password: password);
+      final user = supabase.auth.currentUser;
+
+      if (user != null) {
+        final userCheck = await supabase
+            .from('users')
+            .select()
+            .eq('u_id', user.id)
+            .single()
+            .maybeSingle();
+        if (userCheck == null) {
+          await supabase.from('users').insert({
+            'u_id': user.id,
+            'email': user.email,
+            'username': user.userMetadata?['username'] ?? 'Unknown',
+          });
+        }
+      }
+      print("Success");
       return right(null);
     } catch (e) {
-      print(e);
-
-      return left(ServerFailure("Something"));
+      return left(AuthFailure.fromException(e));
     }
   }
 
@@ -30,10 +46,10 @@ class AuthRepoImpl implements AuthRepo {
         password: password,
         data: {"username": username},
       );
+
       return right(null);
     } catch (e) {
-      print(e);
-      return left(ServerFailure("Something"));
+      return left(AuthFailure.fromException(e));
     }
   }
 }

@@ -67,6 +67,8 @@ class AuthFailure extends Failure {
         default:
           return AuthFailure(e.message);
       }
+    } else if (e is AuthWeakPasswordException) {
+      return AuthFailure(e.message);
     } else if (e is Exception) {
       return AuthFailure(e.toString());
     } else {
