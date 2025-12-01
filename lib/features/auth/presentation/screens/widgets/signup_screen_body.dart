@@ -10,6 +10,9 @@ class SignupScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController emailController = TextEditingController();
+    final TextEditingController usernameController = TextEditingController();
+    final TextEditingController passwordController = TextEditingController();
     return Form(
       key: _key,
       child: Column(
@@ -22,14 +25,18 @@ class SignupScreenBody extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 40),
             child: Column(
               children: [
-                Text(
-                  "Welcome Back!",
-                  style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.start,
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Let's Start",
+                    style: TextStyle(fontSize: 50, fontWeight: FontWeight.bold),
+                  ),
                 ),
+                SizedBox(height: 20),
                 CustomTextFormField(
                   hintText: "Email Address",
                   icon: Icons.email,
+                  controller: emailController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
@@ -39,8 +46,23 @@ class SignupScreenBody extends StatelessWidget {
                 ),
                 Divider(color: Colors.black),
                 CustomTextFormField(
+                  hintText: "Username",
+                  icon: Icons.person,
+                  controller: usernameController,
+
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Please enter your username';
+                    }
+                    return null;
+                  },
+                ),
+
+                Divider(color: Colors.black),
+                CustomTextFormField(
                   hintText: "Password",
                   icon: Icons.lock,
+                  controller: passwordController,
                   validator: (value) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your password';
@@ -49,7 +71,14 @@ class SignupScreenBody extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 20),
-                AppButton(text: "Login"),
+                AppButton(
+                  text: "SignUp",
+                  onPressed: () {
+                    if (_key.currentState?.validate() ?? false) {
+                      print("Error Free");
+                    }
+                  },
+                ),
               ],
             ),
           ),

@@ -6,11 +6,13 @@ class AppButton extends StatelessWidget {
   final double width;
   final double height;
   final String text;
+  final void Function()? onPressed;
   const AppButton({
     super.key,
     this.width = double.infinity,
     this.height = 50,
     required this.text,
+    required this.onPressed,
   });
 
   @override
@@ -19,7 +21,7 @@ class AppButton extends StatelessWidget {
       width: width,
       height: height,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: KMainColor,
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),

@@ -6,11 +6,13 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     required this.icon,
     required this.validator,
+    required this.controller,
   });
 
   final String hintText;
   final IconData icon;
   final String? Function(String? p1)? validator;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,11 @@ class CustomTextFormField extends StatelessWidget {
         hintText: hintText,
         suffixIcon: Icon(icon),
         border: InputBorder.none,
+        errorStyle: TextStyle(color: Colors.red, fontSize: 14),
       ),
       validator: validator,
+      controller: controller,
+      obscureText: hintText == 'Password',
     );
   }
 }
