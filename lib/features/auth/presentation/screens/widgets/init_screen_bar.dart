@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mapory/consts.dart';
+import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/styles.dart';
 
 class InitScreenBar extends StatelessWidget {
@@ -12,7 +14,9 @@ class InitScreenBar extends StatelessWidget {
     return Row(
       children: [
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kLoginRoute);
+          },
           child: Container(
             height: 50,
             width: width * 0.4,
@@ -29,7 +33,9 @@ class InitScreenBar extends StatelessWidget {
           ),
         ),
         GestureDetector(
-          onTap: () {},
+          onTap: () {
+            GoRouter.of(context).push(AppRouter.kSignupRoute);
+          },
           child: Container(
             height: 50,
             width: width * 0.33,

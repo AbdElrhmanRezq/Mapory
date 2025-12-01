@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mapory/core/widgets/simple_app_bar.dart';
 
 import 'package:mapory/features/auth/presentation/screens/widgets/login_screen_body.dart';
 
@@ -7,6 +9,6 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: LoginScreenBody());
+    return Scaffold(appBar: SimpleAppBar(), body: LoginScreenBody());
   }
 }

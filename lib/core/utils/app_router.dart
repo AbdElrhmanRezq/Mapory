@@ -1,6 +1,7 @@
 import 'package:go_router/go_router.dart';
 import 'package:mapory/features/auth/presentation/screens/init_screen.dart';
 import 'package:mapory/features/auth/presentation/screens/login_screen.dart';
+import 'package:mapory/features/auth/presentation/screens/signup_screen.dart';
 
 abstract class AppRouter {
   static const kInitialRoute = '/';
@@ -10,6 +11,7 @@ abstract class AppRouter {
     routes: [
       GoRoute(path: kInitialRoute, builder: (context, state) => InitScreen()),
       GoRoute(path: kLoginRoute, builder: (context, state) => LoginScreen()),
+      GoRoute(path: kSignupRoute, builder: (context, state) => SignupScreen()),
     ],
   );
 }

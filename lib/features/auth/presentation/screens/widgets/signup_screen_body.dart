@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/assets.dart';
-import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/core/widgets/custom_app_button.dart';
 import 'package:mapory/features/auth/presentation/screens/widgets/text_field.dart';
 
 GlobalKey<FormState> _key = GlobalKey<FormState>();
 
-class LoginScreenBody extends StatelessWidget {
-  const LoginScreenBody({super.key});
+class SignupScreenBody extends StatelessWidget {
+  const SignupScreenBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -58,5 +56,6 @@ class LoginScreenBody extends StatelessWidget {
         ],
       ),
     );
+    ;
   }
 }
