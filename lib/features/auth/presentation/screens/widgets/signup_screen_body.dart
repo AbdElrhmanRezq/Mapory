@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/functions/empty_validator.dart';
+import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/core/widgets/custom_app_button.dart';
 import 'package:mapory/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:mapory/features/auth/presentation/screens/widgets/text_field.dart';
@@ -65,6 +66,13 @@ class SignupScreenBody extends StatelessWidget {
                     if (state is AuthLoading) {
                       return Center(
                         child: CircularProgressIndicator(color: KMainColor),
+                      );
+                    } else if (state is AuthSignedUp) {
+                      return Center(
+                        child: Text(
+                          "Signup Successful! Please check your email to verify your account then login.",
+                          style: Styles.textStyle16,
+                        ),
                       );
                     } else {
                       return AppButton(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:mapory/consts.dart';
+import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/functions/empty_validator.dart';
 import 'package:mapory/core/utils/styles.dart';
@@ -83,9 +85,8 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                   },
                   listener: (context, state) {
                     if (state is AuthSignedIn) {
-                      // Handle success, e.g., navigate to another screen
+                      GoRouter.of(context).push(AppRouter.kHomeRoute);
                     } else if (state is AuthError) {
-                      // Handle failure, e.g., show a snackbar with error message
                       ScaffoldMessenger.of(
                         context,
                       ).showSnackBar(SnackBar(content: Text(state.message)));

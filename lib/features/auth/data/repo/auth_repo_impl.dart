@@ -27,7 +27,6 @@ class AuthRepoImpl implements AuthRepo {
           });
         }
       }
-      print("Success");
       return right(null);
     } catch (e) {
       return left(AuthFailure.fromException(e));
