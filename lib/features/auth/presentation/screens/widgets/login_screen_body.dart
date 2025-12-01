@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/functions/empty_validator.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/core/widgets/custom_app_button.dart';
+import 'package:mapory/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
 import 'package:mapory/features/auth/presentation/screens/widgets/text_field.dart';
 
 class LoginScreenBody extends StatefulWidget {
@@ -59,11 +61,34 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                   validator: emptyValidator("Password"),
                 ),
                 SizedBox(height: 20),
-                AppButton(
-                  text: "Login",
-                  onPressed: () {
-                    if (_key.currentState?.validate() ?? false) {
-                      print("Error Free");
+                BlocConsumer<AuthCubit, AuthState>(
+                  builder: (context, state) {
+                    if (state is AuthLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(color: KMainColor),
+                      );
+                    } else {
+                      return AppButton(
+                        text: "Login",
+                        onPressed: () {
+                          if (_key.currentState?.validate() ?? false) {
+                            context.read<AuthCubit>().login(
+                              emailController.text,
+                              passwordController.text,
+                            );
+                          }
+                        },
+                      );
+                    }
+                  },
+                  listener: (context, state) {
+                    if (state is AuthSignedIn) {
+                      // Handle success, e.g., navigate to another screen
+                    } else if (state is AuthError) {
+                      // Handle failure, e.g., show a snackbar with error message
+                      ScaffoldMessenger.of(
+                        context,
+                      ).showSnackBar(SnackBar(content: Text(state.message)));
                     }
                   },
                 ),
