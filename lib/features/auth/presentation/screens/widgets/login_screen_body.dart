@@ -53,7 +53,7 @@ class LoginScreenBody extends StatelessWidget {
                   },
                 ),
                 SizedBox(height: 20),
-                CustomAppButton(text: "Login"),
+                AppButton(text: "Login"),
               ],
             ),
           ),

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/styles.dart';
 
-class CustomAppButton extends StatelessWidget {
+class AppButton extends StatelessWidget {
   final double width;
   final double height;
   final String text;
-  const CustomAppButton({
+  const AppButton({
     super.key,
     this.width = double.infinity,
     this.height = 50,
