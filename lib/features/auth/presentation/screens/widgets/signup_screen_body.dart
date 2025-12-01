@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mapory/core/utils/assets.dart';
+import 'package:mapory/core/utils/functions/empty_validator.dart';
 import 'package:mapory/core/widgets/custom_app_button.dart';
 import 'package:mapory/features/auth/presentation/screens/widgets/text_field.dart';
 
@@ -37,12 +38,7 @@ class SignupScreenBody extends StatelessWidget {
                   hintText: "Email Address",
                   icon: Icons.email,
                   controller: emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return null;
-                  },
+                  validator: emptyValidator("email"),
                 ),
                 Divider(color: Colors.black),
                 CustomTextFormField(
@@ -50,12 +46,7 @@ class SignupScreenBody extends StatelessWidget {
                   icon: Icons.person,
                   controller: usernameController,
 
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your username';
-                    }
-                    return null;
-                  },
+                  validator: emptyValidator("username"),
                 ),
 
                 Divider(color: Colors.black),
@@ -63,12 +54,7 @@ class SignupScreenBody extends StatelessWidget {
                   hintText: "Password",
                   icon: Icons.lock,
                   controller: passwordController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
+                  validator: emptyValidator("password"),
                 ),
                 SizedBox(height: 20),
                 AppButton(

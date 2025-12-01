@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/assets.dart';
+import 'package:mapory/core/utils/functions/empty_validator.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/core/widgets/custom_app_button.dart';
 import 'package:mapory/features/auth/presentation/screens/widgets/text_field.dart';
@@ -47,12 +48,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                   hintText: "Email Address",
                   icon: Icons.email,
                   controller: emailController,
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your email';
-                    }
-                    return null;
-                  },
+                  validator: emptyValidator("Email Address"),
                 ),
                 Divider(color: Colors.black),
                 CustomTextFormField(
@@ -60,12 +56,7 @@ class _LoginScreenBodyState extends State<LoginScreenBody> {
                   icon: Icons.lock,
                   controller: passwordController,
 
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Please enter your password';
-                    }
-                    return null;
-                  },
+                  validator: emptyValidator("Password"),
                 ),
                 SizedBox(height: 20),
                 AppButton(
