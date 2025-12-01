@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/styles.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -6,6 +7,12 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(body: Text("Hello", style: Styles.textStyle30));
+    return Scaffold(
+      body: Center(
+        child: Column(
+          children: [Image.asset(AssetsData.person1, width: 150, height: 150)],
+        ),
+      ),
+    );
   }
 }
