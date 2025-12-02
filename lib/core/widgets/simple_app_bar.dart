@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mapory/core/utils/styles.dart';
 
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const SimpleAppBar({super.key});
+  final String? title;
+  const SimpleAppBar({super.key, this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -14,6 +16,13 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
         },
         icon: Icon(Icons.arrow_back_ios_new),
       ),
+      title: title != null
+          ? Text(
+              title!,
+              style: Styles.textStyle20.copyWith(fontWeight: FontWeight.bold),
+            )
+          : null,
+      centerTitle: true,
     );
   }
 

@@ -26,55 +26,60 @@ class ProfileScreenBody extends StatelessWidget {
       builder: (context, state) {
         if (state is UserDataLoaded) {
           final user = state.userData;
-          return Expanded(
-            child: Stack(
-              children: [
-                Positioned.fill(
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          BackgroundImage(user: user, height: height),
-                          Positioned(
-                            left: 10,
-                            top: 10,
-                            child: IconButton(
-                              onPressed: () {
-                                GoRouter.of(context).pop();
-                              },
-                              icon: Icon(Icons.arrow_back_ios_new),
-                            ),
+          return Stack(
+            children: [
+              Positioned.fill(
+                child: Column(
+                  children: [
+                    Stack(
+                      children: [
+                        BackgroundImage(user: user, height: height),
+                        Positioned(
+                          left: 10,
+                          top: 10,
+                          child: IconButton(
+                            onPressed: () {
+                              GoRouter.of(context).pop();
+                            },
+                            icon: Icon(Icons.arrow_back_ios_new),
                           ),
-                          Positioned(
-                            right: 10,
-                            top: 10,
-                            child: IconButton(
-                              onPressed: () {
-                                GoRouter.of(
-                                  context,
-                                ).push(AppRouter.kEditProfileRoute);
-                              },
-                              icon: Icon(Icons.edit),
-                            ),
+                        ),
+                        Positioned(
+                          right: 10,
+                          top: 10,
+                          child: IconButton(
+                            onPressed: () {
+                              // GoRouter.of(
+                              //   context,
+                              // ).push(AppRouter.kEditProfileRoute);
+
+                              //Change Background Image
+                            },
+                            icon: Icon(Icons.edit),
                           ),
-                        ],
-                      ),
-                      SizedBox(height: height * 0.08),
-                      Text(
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: height * 0.08),
+                    GestureDetector(
+                      onTap: () {
+                        //Change User name
+                      },
+                      child: Text(
                         state.userData.username,
                         style: Styles.textStyle20.copyWith(
                           color: KMainColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(height: 10),
-                      UserImages(),
-                    ],
-                  ),
+                    ),
+                    SizedBox(height: 10),
+                    UserImages(),
+                  ],
                 ),
-                ProfileImage(height: height, width: width, user: user),
-              ],
-            ),
+              ),
+              ProfileImage(height: height, width: width, user: user),
+            ],
           );
         } else if (state is UserDataLoading) {
           return Center(child: CircularProgressIndicator());
