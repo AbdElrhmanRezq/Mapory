@@ -1,3 +1,4 @@
+import 'dart:ui';
 
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -24,6 +25,20 @@ class ImageHelper {
     required XFile file,
     CropStyle cropStyle = CropStyle.rectangle,
   }) async {
-    return await _imageCropper.cropImage(sourcePath: file.path);
+    return await _imageCropper.cropImage(
+      sourcePath: file.path,
+
+      uiSettings: [
+        AndroidUiSettings(
+          toolbarTitle: 'Crop Image',
+          toolbarColor: const Color(0xFF000000),
+          toolbarWidgetColor: const Color(0xFFFFFFFF),
+          activeControlsWidgetColor: const Color(0xFF00FF00),
+          initAspectRatio: CropAspectRatioPreset.original,
+          lockAspectRatio: false,
+        ),
+        IOSUiSettings(title: 'Crop Image'),
+      ],
+    );
   }
 }

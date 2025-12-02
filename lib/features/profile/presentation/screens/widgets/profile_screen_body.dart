@@ -6,6 +6,7 @@ import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
+import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/background_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/user_images.dart';
@@ -36,7 +37,7 @@ class ProfileScreenBody extends StatelessWidget {
                         BackgroundImage(user: user, height: height),
                         Positioned(
                           left: 10,
-                          top: 10,
+                          top: 30,
                           child: IconButton(
                             onPressed: () {
                               GoRouter.of(context).pop();
@@ -46,7 +47,7 @@ class ProfileScreenBody extends StatelessWidget {
                         ),
                         Positioned(
                           right: 10,
-                          top: 10,
+                          top: 30,
                           child: IconButton(
                             onPressed: () {
                               // GoRouter.of(
@@ -54,6 +55,9 @@ class ProfileScreenBody extends StatelessWidget {
                               // ).push(AppRouter.kEditProfileRoute);
 
                               //Change Background Image
+                              BlocProvider.of<UserImagesCubit>(
+                                context,
+                              ).uploadUserImage('background_image');
                             },
                             icon: Icon(Icons.edit),
                           ),
