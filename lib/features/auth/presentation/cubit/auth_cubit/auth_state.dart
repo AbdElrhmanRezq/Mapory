@@ -11,6 +11,8 @@ final class AuthSignedIn extends AuthState {}
 
 final class AuthSignedUp extends AuthState {}
 
+final class AuthSignedOut extends AuthState {}
+
 final class AuthError extends AuthState {
   final String message;
   AuthError(this.message);
