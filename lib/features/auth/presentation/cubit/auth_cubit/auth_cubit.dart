@@ -9,7 +9,6 @@ class AuthCubit extends Cubit<AuthState> {
   AuthCubit(this.authRepoImpl) : super(AuthInitial());
 
   Future<void> login(String email, String password) async {
-    print("Heloooooooooo");
     emit(AuthLoading());
     final result = await authRepoImpl.login(email, password);
     result.fold(

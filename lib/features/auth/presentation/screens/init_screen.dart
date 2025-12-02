@@ -14,7 +14,6 @@ class InitScreen extends StatelessWidget {
       stream: supabase.auth.onAuthStateChange,
       builder: (context, asyncSnapshot) {
         final Session? session = asyncSnapshot.data?.session;
-        print(session);
         if (session == null) {
           return Scaffold(body: InitScreenBody());
         } else {

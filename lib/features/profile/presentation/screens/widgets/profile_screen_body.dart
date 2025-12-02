@@ -6,7 +6,9 @@ import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/background_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/user_images.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({
@@ -32,12 +34,7 @@ class ProfileScreenBody extends StatelessWidget {
                     children: [
                       Stack(
                         children: [
-                          Image.network(
-                            state.userData.backgroundImage,
-                            height: height * 0.31,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                          ),
+                          BackgroundImage(user: user, height: height),
                           Positioned(
                             left: 10,
                             top: 10,
@@ -70,6 +67,8 @@ class ProfileScreenBody extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(height: 10),
+                      UserImages(),
                     ],
                   ),
                 ),
