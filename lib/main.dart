@@ -6,6 +6,8 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:mapory/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
+import 'package:mapory/features/profile/data/repo/user_repo_impl.dart';
+import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main(List<String> args) async {
@@ -25,13 +27,19 @@ class Mapory extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
-      providers: [BlocProvider(create: (context) => AuthCubit(AuthRepoImpl()))],
+      providers: [
+        BlocProvider(create: (context) => AuthCubit(getIt<AuthRepoImpl>())),
+        BlocProvider(
+          create: (context) =>
+              UserDataCubit(getIt<UserRepoImpl>())..fetchUserData(),
+        ),
+      ],
       child: MaterialApp.router(
         title: 'Mapory',
         debugShowCheckedModeBanner: false,
         theme: ThemeData().copyWith(
           scaffoldBackgroundColor: Color(0xFFf1f4f9),
-          textTheme: GoogleFonts.montserratTextTheme().apply(
+          textTheme: GoogleFonts.interTextTheme().apply(
             bodyColor: Color(0xFF464747),
           ),
         ),
