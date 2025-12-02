@@ -76,3 +76,15 @@ class AuthFailure extends Failure {
     }
   }
 }
+
+class DataFailure extends Failure {
+  const DataFailure(super.message);
+
+  factory DataFailure.fromException(dynamic e) {
+    if (e is Exception) {
+      return DataFailure(e.toString());
+    } else {
+      return const DataFailure("An unknown error occurred");
+    }
+  }
+}
