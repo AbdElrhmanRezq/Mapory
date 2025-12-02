@@ -1,12 +1,9 @@
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:mapory/features/auth/data/repo/auth_repo_impl.dart';
-import 'package:mapory/features/auth/presentation/cubit/auth_cubit/auth_cubit.dart';
+
 import 'package:mapory/features/auth/presentation/screens/final_scr.dart';
 import 'package:mapory/features/auth/presentation/screens/init_screen.dart';
 import 'package:mapory/features/auth/presentation/screens/login_screen.dart';
 import 'package:mapory/features/auth/presentation/screens/signup_screen.dart';
-import 'package:mapory/features/profile/presentation/screens/edit_profile_screen.dart';
 
 abstract class AppRouter {
   static const kInitialRoute = '/';
@@ -20,10 +17,6 @@ abstract class AppRouter {
       GoRoute(path: kHomeRoute, builder: (context, state) => FinalScr()),
       GoRoute(path: kLoginRoute, builder: (context, state) => LoginScreen()),
       GoRoute(path: kSignupRoute, builder: (context, state) => SignupScreen()),
-      GoRoute(
-        path: kEditProfileRoute,
-        builder: (context, state) => EditProfileScreen(),
-      ),
     ],
   );
 }
