@@ -16,20 +16,8 @@ abstract class AppRouter {
     routes: [
       GoRoute(path: kInitialRoute, builder: (context, state) => InitScreen()),
       GoRoute(path: kHomeRoute, builder: (context, state) => FinalScr()),
-      GoRoute(
-        path: kLoginRoute,
-        builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(AuthRepoImpl()),
-          child: LoginScreen(),
-        ),
-      ),
-      GoRoute(
-        path: kSignupRoute,
-        builder: (context, state) => BlocProvider(
-          create: (context) => AuthCubit(AuthRepoImpl()),
-          child: SignupScreen(),
-        ),
-      ),
+      GoRoute(path: kLoginRoute, builder: (context, state) => LoginScreen()),
+      GoRoute(path: kSignupRoute, builder: (context, state) => SignupScreen()),
     ],
   );
 }
