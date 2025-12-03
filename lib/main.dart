@@ -36,6 +36,7 @@ class Mapory extends StatelessWidget {
           create: (context) =>
               UserDataCubit(getIt<UserRepoImpl>())..fetchUserData(),
         ),
+        BlocProvider(create: (context) => UserImagesCubit()),
         BlocProvider(
           create: (context) =>
               UserPhotosCubit(getIt<UserRepoImpl>())..fetchUserPhotos(),
