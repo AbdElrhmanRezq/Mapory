@@ -4,9 +4,11 @@ import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_photos_cubit/user_photos_cubit.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/photos_grid.dart';
 
 class UserPhotos extends StatelessWidget {
-  const UserPhotos({super.key});
+  final int totalPhotos;
+  const UserPhotos({super.key, required this.totalPhotos});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +17,7 @@ class UserPhotos extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Photos", style: Styles.textStyle16),
+          //Text("Photos", style: Styles.textStyle16),
           Divider(color: KMainColor),
           SizedBox(
             height: 300,
@@ -25,23 +27,7 @@ class UserPhotos extends StatelessWidget {
                   List<PhotoModel> photos = BlocProvider.of<UserPhotosCubit>(
                     context,
                   ).photos;
-                  return GridView.builder(
-                    padding: EdgeInsets.zero,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 3,
-                        ),
-                    itemCount: photos.length,
-                    itemBuilder: (context, index) {
-                      return ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: Image.network(
-                          photos[index].imageUrl,
-                          fit: BoxFit.cover,
-                        ),
-                      );
-                    },
-                  );
+                  return PhotosGrid(totalPhotos: totalPhotos, photos: photos);
                 } else {
                   return Center(child: CircularProgressIndicator());
                 }

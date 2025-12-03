@@ -109,7 +109,7 @@ class ProfileScreenBody extends StatelessWidget {
                       photosCount: state.photosCount,
                     ),
                     SizedBox(height: 10),
-                    UserPhotos(),
+                    UserPhotos(totalPhotos: state.photosCount),
                   ],
                 ),
               ),

@@ -7,14 +7,12 @@ part 'user_photos_state.dart';
 
 class UserPhotosCubit extends Cubit<UserPhotosState> {
   final UserRepo userRepo;
+  int offset = 0;
   List<PhotoModel> photos = [];
 
   UserPhotosCubit(this.userRepo) : super(UserPhotosInitial());
 
-  Future<List<PhotoModel>> fetchUserPhotos({
-    int limit = 10,
-    int offset = 0,
-  }) async {
+  Future<List<PhotoModel>> fetchUserPhotos({int limit = 11}) async {
     emit(UserPhotosLoading());
     try {
       final loadedPhotos = await userRepo.getUserPhotos(
@@ -22,6 +20,7 @@ class UserPhotosCubit extends Cubit<UserPhotosState> {
         offset: offset,
       );
       photos.addAll(loadedPhotos);
+      offset++;
       emit(UserPhotosLoaded());
       return photos;
     } catch (e) {

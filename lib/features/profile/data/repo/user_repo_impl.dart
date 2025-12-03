@@ -79,8 +79,8 @@ class UserRepoImpl implements UserRepo {
     return Future(() async {
       final supabase = getIt<SupabaseClient>();
       final user = supabase.auth.currentUser;
-      final int start = offset;
-      final int end = offset + limit - 1;
+      final int start = offset * limit;
+      final int end = start + limit - 1;
       final data = await supabase
           .from('photos')
           .select()
