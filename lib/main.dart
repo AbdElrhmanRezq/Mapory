@@ -9,6 +9,7 @@ import 'package:mapory/features/auth/presentation/cubit/auth_cubit/auth_cubit.da
 import 'package:mapory/features/profile/data/repo/user_repo_impl.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart';
+import 'package:mapory/features/profile/presentation/cubit/user_photos_cubit/user_photos_cubit.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 void main(List<String> args) async {
@@ -34,7 +35,10 @@ class Mapory extends StatelessWidget {
           create: (context) =>
               UserDataCubit(getIt<UserRepoImpl>())..fetchUserData(),
         ),
-        BlocProvider(create: (context) => UserImagesCubit()),
+        BlocProvider(
+          create: (context) =>
+              UserPhotosCubit(getIt<UserRepoImpl>())..fetchUserPhotos(),
+        ),
       ],
       child: MaterialApp.router(
         title: 'Mapory',

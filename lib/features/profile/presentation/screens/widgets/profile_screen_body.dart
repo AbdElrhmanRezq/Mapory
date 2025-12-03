@@ -10,7 +10,7 @@ import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/use
 import 'package:mapory/features/profile/presentation/screens/widgets/background_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/info_bar.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
-import 'package:mapory/features/profile/presentation/screens/widgets/user_images.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/user_photos.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({
@@ -109,7 +109,7 @@ class ProfileScreenBody extends StatelessWidget {
                       photosCount: state.photosCount,
                     ),
                     SizedBox(height: 10),
-                    UserImages(),
+                    UserPhotos(),
                   ],
                 ),
               ),

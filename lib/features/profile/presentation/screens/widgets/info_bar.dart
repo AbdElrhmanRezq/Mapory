@@ -33,7 +33,7 @@ class InfoBar extends StatelessWidget {
                   Opacity(
                     opacity: 0.6,
                     child: Text(
-                      "Likes",
+                      "Photos",
                       style: Styles.textStyle14.copyWith(color: Colors.white),
                     ),
                   ),
