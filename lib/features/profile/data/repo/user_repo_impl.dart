@@ -22,4 +22,23 @@ class UserRepoImpl implements UserRepo {
       return left(DataFailure.fromException(e));
     }
   }
+
+  @override
+  Future<Either<Failure, UserModel>> changeUserName(String newName) async {
+    try {
+      final supabase = getIt<SupabaseClient>();
+      final user = supabase.auth.currentUser;
+      final data = await supabase
+          .from('users')
+          .update({'username': newName})
+          .eq('u_id', user?.id ?? '')
+          .select()
+          .single();
+      final userModel = UserModel.fromMap(data);
+      return right(userModel);
+    } catch (e) {
+      print(e);
+      return left(DataFailure.fromException(e));
+    }
+  }
 }

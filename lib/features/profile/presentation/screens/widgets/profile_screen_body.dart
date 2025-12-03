@@ -23,6 +23,33 @@ class ProfileScreenBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _usernameController = TextEditingController();
+
+    void changeUserName(String oldName) async {
+      _usernameController.text = oldName;
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: Text("Change Username"),
+          content: TextField(
+            controller: _usernameController,
+            decoration: InputDecoration(hintText: "Enter new username"),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () async {
+                await BlocProvider.of<UserDataCubit>(
+                  context,
+                ).changeUserName(_usernameController.text);
+                Navigator.of(context).pop();
+              },
+              child: Text("Submit"),
+            ),
+          ],
+        ),
+      );
+    }
+
     return BlocBuilder<UserDataCubit, UserDataState>(
       builder: (context, state) {
         if (state is UserDataLoaded) {
@@ -62,10 +89,10 @@ class ProfileScreenBody extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: height * 0.08),
+                    SizedBox(height: height * 0.095),
                     GestureDetector(
-                      onTap: () {
-                        //Change User name
+                      onTap: () async {
+                        changeUserName(state.userData.username);
                       },
                       child: Text(
                         state.userData.username,

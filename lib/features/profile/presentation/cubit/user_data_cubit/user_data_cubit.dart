@@ -16,4 +16,13 @@ class UserDataCubit extends Cubit<UserDataState> {
       (userData) => emit(UserDataLoaded(userData)),
     );
   }
+
+  Future<void> changeUserName(String newName) async {
+    emit(UserDataLoading());
+    final result = await userRepo.changeUserName(newName);
+    result.fold(
+      (failure) => emit(UserDataError(failure.message)),
+      (userData) => emit(UserDataLoaded(userData)),
+    );
+  }
 }
