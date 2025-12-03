@@ -66,26 +66,35 @@ class ProfileScreenBody extends StatelessWidget {
                         Positioned(
                           left: 10,
                           top: 30,
-                          child: IconButton(
-                            onPressed: () {
-                              GoRouter.of(context).pop();
-                            },
-                            icon: Icon(Icons.arrow_back_ios_new),
+                          child: CircleAvatar(
+                            backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
+                            child: IconButton(
+                              onPressed: () {
+                                GoRouter.of(context).pop();
+                              },
+                              icon: Icon(
+                                Icons.arrow_back_ios_new,
+                                color: KMainColor,
+                              ),
+                            ),
                           ),
                         ),
                         Positioned(
                           right: 10,
                           top: 30,
-                          child: IconButton(
-                            onPressed: () async {
-                              await BlocProvider.of<UserImagesCubit>(
-                                context,
-                              ).uploadUserImage('background_image');
-                              await BlocProvider.of<UserDataCubit>(
-                                context,
-                              ).fetchUserData();
-                            },
-                            icon: Icon(Icons.edit),
+                          child: CircleAvatar(
+                            backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
+                            child: IconButton(
+                              onPressed: () async {
+                                await BlocProvider.of<UserImagesCubit>(
+                                  context,
+                                ).uploadUserImage('background_image');
+                                await BlocProvider.of<UserDataCubit>(
+                                  context,
+                                ).fetchUserData();
+                              },
+                              icon: Icon(Icons.edit, color: KMainColor),
+                            ),
                           ),
                         ),
                       ],

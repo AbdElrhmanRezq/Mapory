@@ -20,7 +20,7 @@ class UserPhotos extends StatelessWidget {
           //Text("Photos", style: Styles.textStyle16),
           Divider(color: KMainColor),
           SizedBox(
-            height: 300,
+            height: 350,
             child: BlocBuilder<UserPhotosCubit, UserPhotosState>(
               builder: (context, state) {
                 if (state is UserPhotosLoaded) {

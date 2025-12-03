@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/app_router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:mapory/core/utils/service_locator.dart';
@@ -45,6 +46,7 @@ class Mapory extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData().copyWith(
           scaffoldBackgroundColor: Color(0xFFf1f4f9),
+          iconTheme: IconThemeData(color: KMainColor),
           textTheme: GoogleFonts.exoTextTheme().apply(
             bodyColor: Color(0xFF464747),
           ),
