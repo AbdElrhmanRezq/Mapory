@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mapory/core/utils/functions/cache_fix.dart';
 import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart';
 
@@ -11,34 +12,15 @@ class BackgroundImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserImagesCubit, UserImagesState>(
-      builder: (context, state) {
-        if (state is UserImagesUploading && state.type == 'background_image') {
-          return Container(
-            height: height * 0.3,
-            width: double.infinity,
-            color: Colors.grey[300],
-            child: Center(child: CircularProgressIndicator()),
-          );
-        } else if (state is UserImagesError) {
-          return Container(
-            height: height * 0.3,
-            width: double.infinity,
-            child: Icon(Icons.error, color: Colors.red),
-          );
-        } else {
-          return Container(
-            height: height * 0.3,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: NetworkImage(user.backgroundImage),
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
-        }
-      },
+    return Container(
+      height: height * 0.3,
+      width: double.infinity,
+      decoration: BoxDecoration(
+        image: DecorationImage(
+          image: NetworkImage(cacheFix(user.backgroundImage)),
+          fit: BoxFit.cover,
+        ),
+      ),
     );
   }
 }

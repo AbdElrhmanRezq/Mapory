@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapory/consts.dart';
+import 'package:mapory/core/utils/functions/cache_fix.dart';
 import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart'
@@ -39,7 +40,7 @@ class ProfileImage extends StatelessWidget {
             padding: const EdgeInsets.all(8.0),
             child: CircleAvatar(
               radius: 59,
-              backgroundImage: NetworkImage(user.profileImage),
+              backgroundImage: NetworkImage(cacheFix(user.profileImage)),
             ),
           ),
         ),
