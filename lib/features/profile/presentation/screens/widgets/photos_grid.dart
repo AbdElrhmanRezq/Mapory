@@ -26,6 +26,11 @@ class PhotosGrid extends StatelessWidget {
           ? photos.length + 1
           : photos.length,
       itemBuilder: (context, index) {
+        ////////////////////////////////////
+        ////  The next checks are for
+        ////  adding the load more
+        ////  photos button
+        ////////////////////////////////////
         if (totalPhotos > photos.length) {
           if (index != (photos.length)) {
             return Image.network(photos[index].imageUrl, fit: BoxFit.cover);
