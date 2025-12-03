@@ -35,13 +35,13 @@ class ProfileImage extends StatelessWidget {
           decoration: BoxDecoration(
             color: KMainBackground,
             borderRadius: BorderRadius.circular(100),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              radius: 59,
-              backgroundImage: NetworkImage(cacheFix(user.profileImage)),
+            border: Border.fromBorderSide(
+              BorderSide(color: KMainColor, width: 3),
             ),
+          ),
+          child: CircleAvatar(
+            radius: 60,
+            backgroundImage: NetworkImage(cacheFix(user.profileImage)),
           ),
         ),
       ),

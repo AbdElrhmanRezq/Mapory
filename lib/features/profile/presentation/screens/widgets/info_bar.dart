@@ -14,42 +14,55 @@ class InfoBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        SizedBox(
-          height: 80,
-          width: 80,
-          child: Column(
-            children: [
-              Text(
-                "$photosCount",
-                style: Styles.textStyle20.copyWith(color: KMainColor),
+    return Container(
+      decoration: BoxDecoration(color: KMainColor),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              height: 60,
+              width: 60,
+              child: Column(
+                children: [
+                  Text(
+                    "$photosCount",
+                    style: Styles.textStyle20.copyWith(color: Colors.white),
+                  ),
+                  Opacity(
+                    opacity: 0.6,
+                    child: Text(
+                      "Likes",
+                      style: Styles.textStyle14.copyWith(color: Colors.white),
+                    ),
+                  ),
+                ],
               ),
-              Opacity(
-                opacity: 0.6,
-                child: Text("Photos", style: Styles.textStyle14),
-              ),
-            ],
+            ),
           ),
-        ),
-        SizedBox(
-          height: 80,
-          width: 80,
-          child: Column(
-            children: [
-              Text(
-                "$likesCount",
-                style: Styles.textStyle20.copyWith(color: KMainColor),
-              ),
-              Opacity(
-                opacity: 0.6,
-                child: Text("Likes", style: Styles.textStyle14),
-              ),
-            ],
+          SizedBox(width: 20),
+          SizedBox(
+            height: 60,
+            width: 60,
+            child: Column(
+              children: [
+                Text(
+                  "$likesCount",
+                  style: Styles.textStyle20.copyWith(color: Colors.white),
+                ),
+                Opacity(
+                  opacity: 0.6,
+                  child: Text(
+                    "Likes",
+                    style: Styles.textStyle14.copyWith(color: Colors.white),
+                  ),
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

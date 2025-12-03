@@ -18,7 +18,7 @@ class UserImages extends StatelessWidget {
               SizedBox(width: 8),
             ],
           ),
-          Divider(),
+          Divider(color: KMainColor),
         ],
       ),
     );

@@ -41,7 +41,7 @@ class Mapory extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: ThemeData().copyWith(
           scaffoldBackgroundColor: Color(0xFFf1f4f9),
-          textTheme: GoogleFonts.interTextTheme().apply(
+          textTheme: GoogleFonts.exoTextTheme().apply(
             bodyColor: Color(0xFF464747),
           ),
         ),
