@@ -5,9 +5,16 @@ sealed class UserImagesState {}
 
 final class UserImagesInitial extends UserImagesState {}
 
-final class UserImagesUploading extends UserImagesState {}
+final class UserImagesUploading extends UserImagesState {
+  final String type;
 
-final class UserImagesUploaded extends UserImagesState {}
+  UserImagesUploading(this.type);
+}
+
+final class UserImagesUploaded extends UserImagesState {
+  final String? imageUrl;
+  UserImagesUploaded({this.imageUrl});
+}
 
 final class UserImagesError extends UserImagesState {
   final String message;

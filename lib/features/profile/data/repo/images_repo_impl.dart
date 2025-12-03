@@ -29,7 +29,7 @@ class ImagesRepoImpl implements ImagesRepo {
       final imageBytes = await file.readAsBytes();
 
       final imagePath =
-          '${supabase.auth.currentUser?.id}/$type.$imageExtension';
+          '${supabase.auth.currentUser?.id}/$type-${DateTime.now().millisecondsSinceEpoch}.$imageExtension';
       print(imagePath);
       await supabase.storage
           .from('profile_images')

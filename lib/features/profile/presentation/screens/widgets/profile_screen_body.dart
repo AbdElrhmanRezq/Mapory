@@ -26,7 +26,7 @@ class ProfileScreenBody extends StatelessWidget {
     return BlocBuilder<UserDataCubit, UserDataState>(
       builder: (context, state) {
         if (state is UserDataLoaded) {
-          final user = state.userData;
+          UserModel user = state.userData;
           return Stack(
             children: [
               Positioned.fill(
@@ -49,15 +49,13 @@ class ProfileScreenBody extends StatelessWidget {
                           right: 10,
                           top: 30,
                           child: IconButton(
-                            onPressed: () {
-                              // GoRouter.of(
-                              //   context,
-                              // ).push(AppRouter.kEditProfileRoute);
-
-                              //Change Background Image
-                              BlocProvider.of<UserImagesCubit>(
+                            onPressed: () async {
+                              await BlocProvider.of<UserImagesCubit>(
                                 context,
                               ).uploadUserImage('background_image');
+                              await BlocProvider.of<UserDataCubit>(
+                                context,
+                              ).fetchUserData();
                             },
                             icon: Icon(Icons.edit),
                           ),

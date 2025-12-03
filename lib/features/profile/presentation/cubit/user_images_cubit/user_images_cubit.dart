@@ -16,7 +16,7 @@ class UserImagesCubit extends Cubit<UserImagesState> {
   UserImagesCubit() : super(UserImagesInitial());
   Future<void> uploadUserImage(String type) async {
     try {
-      emit(UserImagesUploading());
+      emit(UserImagesUploading(type));
       final CroppedFile? croppedImage;
       final file = await imageHelper.pickImage();
       if (file != null) {
@@ -24,16 +24,18 @@ class UserImagesCubit extends Cubit<UserImagesState> {
         if (croppedImage == null) {
           emit(UserImagesError('Image cropping cancelled'));
           return;
+        } else {
+          emit(UserImagesInitial());
         }
 
         final imageUrl = await imagesRepo.uploadImage(type, croppedImage);
-        print("Finishedddddddddddd==========================");
 
         await imagesRepo.updateImageData(imageUrl, type);
-        emit(UserImagesUploaded());
+        emit(UserImagesUploaded(imageUrl: imageUrl));
+      } else {
+        emit(UserImagesInitial());
       }
     } catch (e) {
-      print(e);
       emit(UserImagesError(e.toString()));
     }
   }
