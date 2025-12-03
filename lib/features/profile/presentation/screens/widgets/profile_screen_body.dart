@@ -8,6 +8,7 @@ import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/background_image.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/info_bar.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/user_images.dart';
 
@@ -103,6 +104,8 @@ class ProfileScreenBody extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
+                    InfoBar(likesCount: 12, photosCount: 13),
+
                     UserImages(),
                   ],
                 ),

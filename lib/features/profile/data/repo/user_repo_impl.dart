@@ -41,4 +41,19 @@ class UserRepoImpl implements UserRepo {
       return left(DataFailure.fromException(e));
     }
   }
+
+  @override
+  Future<int> getUserPhotosCount() async {
+    final supabase = getIt<SupabaseClient>();
+    final userId = supabase.auth.currentUser?.id ?? '';
+
+    final countResponse = await supabase.rpc(
+      'photos_count_by_user',
+      params: {'u_id': userId},
+    );
+
+    final count = countResponse as int? ?? 0;
+
+    return count;
+  }
 }

@@ -16,14 +16,6 @@ class UserImages extends StatelessWidget {
             children: [
               Text("Photos", style: Styles.textStyle16),
               SizedBox(width: 8),
-              CircleAvatar(
-                maxRadius: 12,
-                backgroundColor: KMainColor,
-                child: Text(
-                  "16",
-                  style: Styles.textStyle14.copyWith(color: Colors.white),
-                ),
-              ),
             ],
           ),
           Divider(),
