@@ -5,4 +5,6 @@ import 'package:mapory/features/profile/data/models/user_model.dart';
 abstract class UserRepo {
   Future<Either<Failure, UserModel>> getUserData();
   Future<Either<Failure, UserModel>> changeUserName(String newName);
+  Future<int> getUserPhotosCount();
+  Future<int> getLikesCount();
 }

@@ -56,4 +56,17 @@ class UserRepoImpl implements UserRepo {
 
     return count;
   }
+
+  @override
+  Future<int> getLikesCount() async {
+    final supabase = getIt<SupabaseClient>();
+    final user = supabase.auth.currentUser;
+    final data = await supabase
+        .from('likes')
+        .select()
+        .eq('author_id', user?.id ?? '');
+    final records = data as List<dynamic>;
+
+    return records.length;
+  }
 }
