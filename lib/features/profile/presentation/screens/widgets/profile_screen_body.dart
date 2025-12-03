@@ -104,7 +104,10 @@ class ProfileScreenBody extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    InfoBar(likesCount: 12, photosCount: 13),
+                    InfoBar(
+                      likesCount: state.likesCount,
+                      photosCount: state.photosCount,
+                    ),
 
                     UserImages(),
                   ],
