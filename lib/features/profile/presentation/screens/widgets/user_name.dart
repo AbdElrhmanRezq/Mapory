@@ -25,7 +25,7 @@ class UserName extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
-              color: Colors.blueGrey,
+              color: KMainColor,
               borderRadius: BorderRadius.circular(2),
             ),
             child: Padding(

@@ -8,6 +8,7 @@ import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/user_images_cubit.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/background_image.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/go_back_buton_highlighted.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/info_bar.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/user_name.dart';
@@ -74,36 +75,12 @@ class ProfileScreenBody extends StatelessWidget {
                       Positioned(
                         left: 10,
                         top: 30,
-                        child: CircleAvatar(
-                          backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
-                          child: IconButton(
-                            onPressed: () {
-                              GoRouter.of(context).pop();
-                            },
-                            icon: Icon(
-                              Icons.arrow_back_ios_new,
-                              color: KMainColor,
-                            ),
-                          ),
-                        ),
+                        child: GoBackButtonHighlighted(),
                       ),
                       Positioned(
                         right: 10,
                         top: 30,
-                        child: CircleAvatar(
-                          backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
-                          child: IconButton(
-                            onPressed: () async {
-                              await BlocProvider.of<UserImagesCubit>(
-                                context,
-                              ).uploadUserImage('background_image');
-                              await BlocProvider.of<UserDataCubit>(
-                                context,
-                              ).fetchUserData();
-                            },
-                            icon: Icon(Icons.edit, color: KMainColor),
-                          ),
-                        ),
+                        child: EditBackgroundButton(),
                       ),
                       ProfileImage(height: height, width: width, user: user),
                     ],
@@ -133,6 +110,26 @@ class ProfileScreenBody extends StatelessWidget {
           return Center(child: Text("No user data"));
         }
       },
+    );
+  }
+}
+
+class EditBackgroundButton extends StatelessWidget {
+  const EditBackgroundButton({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return CircleAvatar(
+      backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
+      child: IconButton(
+        onPressed: () async {
+          await BlocProvider.of<UserImagesCubit>(
+            context,
+          ).uploadUserImage('background_image');
+          await BlocProvider.of<UserDataCubit>(context).fetchUserData();
+        },
+        icon: Icon(Icons.edit, color: KMainColor),
+      ),
     );
   }
 }
