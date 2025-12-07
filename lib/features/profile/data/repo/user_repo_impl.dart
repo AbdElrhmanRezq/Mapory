@@ -8,14 +8,14 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserRepoImpl implements UserRepo {
   @override
-  Future<Either<Failure, UserModel>> getUserData() async {
+  Future<Either<Failure, UserModel>> getUserData({String id = ''}) async {
     try {
       final supabase = getIt<SupabaseClient>();
-      final user = supabase.auth.currentUser;
+      final userId = id != '' ? id : supabase.auth.currentUser?.id;
       final data = await supabase
           .from('users')
           .select()
-          .eq('u_id', user?.id ?? '')
+          .eq('u_id', userId ?? '')
           .single();
       final userModel = UserModel.fromMap(data);
       return right(userModel);

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
-import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_photos_cubit/user_photos_cubit.dart';
 
 class PhotosGrid extends StatelessWidget {
@@ -54,7 +55,17 @@ class PhotosGrid extends StatelessWidget {
             );
           }
         } else {
-          return Image.network(photos[index].imageUrl, fit: BoxFit.cover);
+          return GestureDetector(
+            onTap: () {
+              GoRouter.of(
+                context,
+              ).push(AppRouter.kPhotoRoute, extra: photos[index]);
+            },
+            child: Hero(
+              tag: photos[index].id,
+              child: Image.network(photos[index].imageUrl, fit: BoxFit.cover),
+            ),
+          );
         }
       },
     );
