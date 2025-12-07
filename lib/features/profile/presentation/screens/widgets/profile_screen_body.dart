@@ -55,75 +55,81 @@ class ProfileScreenBody extends StatelessWidget {
       builder: (context, state) {
         if (state is UserDataLoaded) {
           UserModel user = state.userData;
-          return Stack(
-            children: [
-              Positioned.fill(
-                child: Column(
-                  children: [
-                    Stack(
-                      children: [
-                        BackgroundImage(user: user, height: height),
-                        Positioned(
-                          left: 10,
-                          top: 30,
-                          child: CircleAvatar(
-                            backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
-                            child: IconButton(
-                              onPressed: () {
-                                GoRouter.of(context).pop();
-                              },
-                              icon: Icon(
-                                Icons.arrow_back_ios_new,
-                                color: KMainColor,
-                              ),
+          return Positioned.fill(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Stack(
+                    children: [
+                      Column(
+                        children: [
+                          BackgroundImage(user: user, height: height),
+                          Container(
+                            color: KMainBackground,
+                            height: height * 0.1,
+                          ),
+                        ],
+                      ),
+                      Positioned(
+                        left: 10,
+                        top: 30,
+                        child: CircleAvatar(
+                          backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
+                          child: IconButton(
+                            onPressed: () {
+                              GoRouter.of(context).pop();
+                            },
+                            icon: Icon(
+                              Icons.arrow_back_ios_new,
+                              color: KMainColor,
                             ),
                           ),
-                        ),
-                        Positioned(
-                          right: 10,
-                          top: 30,
-                          child: CircleAvatar(
-                            backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
-                            child: IconButton(
-                              onPressed: () async {
-                                await BlocProvider.of<UserImagesCubit>(
-                                  context,
-                                ).uploadUserImage('background_image');
-                                await BlocProvider.of<UserDataCubit>(
-                                  context,
-                                ).fetchUserData();
-                              },
-                              icon: Icon(Icons.edit, color: KMainColor),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    SizedBox(height: height * 0.095),
-                    GestureDetector(
-                      onTap: () async {
-                        changeUserName(state.userData.username);
-                      },
-                      child: Text(
-                        state.userData.username,
-                        style: Styles.textStyle20.copyWith(
-                          color: KMainColor,
-                          fontWeight: FontWeight.bold,
                         ),
                       ),
+                      Positioned(
+                        right: 10,
+                        top: 30,
+                        child: CircleAvatar(
+                          backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
+                          child: IconButton(
+                            onPressed: () async {
+                              await BlocProvider.of<UserImagesCubit>(
+                                context,
+                              ).uploadUserImage('background_image');
+                              await BlocProvider.of<UserDataCubit>(
+                                context,
+                              ).fetchUserData();
+                            },
+                            icon: Icon(Icons.edit, color: KMainColor),
+                          ),
+                        ),
+                      ),
+                      ProfileImage(height: height, width: width, user: user),
+                    ],
+                  ),
+                  //SizedBox(height: height * 0.095),
+                  GestureDetector(
+                    onTap: () async {
+                      changeUserName(state.userData.username);
+                    },
+                    child: Text(
+                      state.userData.username,
+                      style: Styles.textStyle20.copyWith(
+                        color: KMainColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                    SizedBox(height: 10),
-                    InfoBar(
-                      likesCount: state.likesCount,
-                      photosCount: state.photosCount,
-                    ),
-                    SizedBox(height: 10),
-                    UserPhotos(totalPhotos: state.photosCount),
-                  ],
-                ),
+                  ),
+                  SizedBox(height: 10),
+                  InfoBar(
+                    likesCount: state.likesCount,
+                    photosCount: state.photosCount,
+                  ),
+                  SizedBox(height: 10),
+                  UserPhotos(totalPhotos: state.photosCount),
+                ],
               ),
-              ProfileImage(height: height, width: width, user: user),
-            ],
+            ),
           );
         } else if (state is UserDataLoading) {
           return Center(child: CircularProgressIndicator());

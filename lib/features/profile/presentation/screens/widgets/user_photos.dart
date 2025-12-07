@@ -13,26 +13,23 @@ class UserPhotos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 28),
+      padding: const EdgeInsets.symmetric(horizontal: 14),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Text("Photos", style: Styles.textStyle16),
+          Text("Photos", style: Styles.textStyle16),
           Divider(color: KMainColor),
-          SizedBox(
-            height: 350,
-            child: BlocBuilder<UserPhotosCubit, UserPhotosState>(
-              builder: (context, state) {
-                if (state is UserPhotosLoaded) {
-                  List<PhotoModel> photos = BlocProvider.of<UserPhotosCubit>(
-                    context,
-                  ).photos;
-                  return PhotosGrid(totalPhotos: totalPhotos, photos: photos);
-                } else {
-                  return Center(child: CircularProgressIndicator());
-                }
-              },
-            ),
+          BlocBuilder<UserPhotosCubit, UserPhotosState>(
+            builder: (context, state) {
+              if (state is UserPhotosLoaded) {
+                List<PhotoModel> photos = BlocProvider.of<UserPhotosCubit>(
+                  context,
+                ).photos;
+                return PhotosGrid(totalPhotos: totalPhotos, photos: photos);
+              } else {
+                return Center(child: CircularProgressIndicator());
+              }
+            },
           ),
         ],
       ),
