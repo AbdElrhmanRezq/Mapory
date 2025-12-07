@@ -11,7 +11,7 @@ class UserDataCubit extends Cubit<UserDataState> {
   Future<void> fetchUserData() async {
     emit(UserDataLoading());
     final result = await userRepo.getUserData();
-    final photosCount = await userRepo.getUserPhotosCount();
+    final photosCount = await userRepo.getUserPhotosCount(visibility: 'public');
     final likesCount = await userRepo.getLikesCount();
     result.fold(
       (failure) => emit(UserDataError(failure.message)),

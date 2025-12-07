@@ -5,14 +5,21 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class UserPhotosRepoImpl implements UserPhotosRepo {
   @override
-  Future<int> getUserPhotosCount() async {
+  Future<int> getUserPhotosCount({String visibility = 'all'}) async {
     final supabase = getIt<SupabaseClient>();
     final userId = supabase.auth.currentUser?.id ?? '';
-
-    final countResponse = await supabase.rpc(
-      'photos_count_by_user',
-      params: {'u_id': userId},
-    );
+    final countResponse;
+    if (visibility == 'all') {
+      countResponse = await supabase.rpc(
+        'photos_count_by_user',
+        params: {'u_id': userId},
+      );
+    } else {
+      countResponse = await supabase.rpc(
+        'photos_count_by_user',
+        params: {'u_id': userId, 'visibility': "public"},
+      );
+    }
 
     final count = countResponse as int? ?? 0;
 
