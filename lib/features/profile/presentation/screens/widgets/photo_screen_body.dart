@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/profile/data/models/user_model.dart';
@@ -36,9 +37,6 @@ class PhotoScreenBody extends StatelessWidget {
                     ),
                   ],
                 ),
-                Text('${photo.lat}'),
-                Text('${photo.long}'),
-                Text(userData.username),
               ],
             ),
           );
