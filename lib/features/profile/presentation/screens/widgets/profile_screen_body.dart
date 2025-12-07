@@ -10,6 +10,7 @@ import 'package:mapory/features/profile/presentation/cubit/user_images_cubit/use
 import 'package:mapory/features/profile/presentation/screens/widgets/background_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/info_bar.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/user_name.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/user_photos.dart';
 
 class ProfileScreenBody extends StatelessWidget {
@@ -107,18 +108,11 @@ class ProfileScreenBody extends StatelessWidget {
                       ProfileImage(height: height, width: width, user: user),
                     ],
                   ),
-                  //SizedBox(height: height * 0.095),
-                  GestureDetector(
-                    onTap: () async {
+                  UserName(
+                    state: state,
+                    onTapFunction: () async {
                       changeUserName(state.userData.username);
                     },
-                    child: Text(
-                      state.userData.username,
-                      style: Styles.textStyle20.copyWith(
-                        color: KMainColor,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
                   ),
                   SizedBox(height: 10),
                   InfoBar(
