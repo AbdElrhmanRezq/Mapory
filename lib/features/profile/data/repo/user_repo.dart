@@ -6,8 +6,8 @@ import 'package:mapory/features/profile/data/models/user_model.dart';
 abstract class UserRepo {
   Future<Either<Failure, UserModel>> getUserData({String id = ''});
   Future<Either<Failure, UserModel>> changeUserName(String newName);
-  Future<int> getUserPhotosCount({String visibility = 'all'});
-  Future<int> getLikesCount();
+  Future<int> getUserPhotosCount({String visibility = 'all', String id = ''});
+  Future<int> getLikesCount({String id = ''});
   Future<List<PhotoModel>> getUserPhotos({
     required int limit,
     required int offset,

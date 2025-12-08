@@ -44,9 +44,12 @@ class UserRepoImpl implements UserRepo {
   }
 
   @override
-  Future<int> getUserPhotosCount({String visibility = 'all'}) async {
+  Future<int> getUserPhotosCount({
+    String visibility = 'all',
+    String id = '',
+  }) async {
     final supabase = getIt<SupabaseClient>();
-    final userId = supabase.auth.currentUser?.id ?? '';
+    final userId = id != '' ? id : supabase.auth.currentUser?.id;
     final countResponse;
     if (visibility == 'all') {
       countResponse = await supabase.rpc(
@@ -66,13 +69,13 @@ class UserRepoImpl implements UserRepo {
   }
 
   @override
-  Future<int> getLikesCount() async {
+  Future<int> getLikesCount({String id = ''}) async {
     final supabase = getIt<SupabaseClient>();
-    final user = supabase.auth.currentUser;
+    final userId = id != '' ? id : supabase.auth.currentUser?.id;
     final data = await supabase
         .from('likes')
         .select()
-        .eq('author_id', user?.id ?? '');
+        .eq('author_id', userId ?? '');
     final records = data as List<dynamic>;
 
     return records.length;
