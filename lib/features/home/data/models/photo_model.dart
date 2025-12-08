@@ -7,6 +7,8 @@ class PhotoModel {
   final double long;
   final double lat;
   final String visibility;
+  final String createdAt;
+
   PhotoModel({
     required this.id,
     required this.userId,
@@ -16,6 +18,7 @@ class PhotoModel {
     required this.long,
     required this.lat,
     required this.visibility,
+    required this.createdAt,
   });
   factory PhotoModel.fromMap(Map<String, dynamic> map) {
     return PhotoModel(
@@ -27,6 +30,7 @@ class PhotoModel {
       long: map['long']?.toDouble() ?? 0.0,
       lat: map['lat']?.toDouble() ?? 0.0,
       visibility: map['visibility'] ?? 'public',
+      createdAt: map['created_at'].toString(),
     );
   }
   Map<String, dynamic> toMap() {
@@ -39,6 +43,7 @@ class PhotoModel {
       'long': long,
       'lat': lat,
       'visibility': visibility,
+      'created_at': DateTime.now(),
     };
   }
 }
