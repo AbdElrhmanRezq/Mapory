@@ -11,7 +11,7 @@ class PhotoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //appBar: SimpleAppBar(),
+      appBar: SimpleAppBar(),
       body: PhotoScreenBody(photo: photo),
     );
   }

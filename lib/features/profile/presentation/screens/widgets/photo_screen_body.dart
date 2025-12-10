@@ -31,18 +31,9 @@ class PhotoScreenBody extends StatelessWidget {
             (failure) => Center(child: Text("Failure")),
             (userData) => ListView(
               children: [
-                Stack(
-                  children: [
-                    Hero(tag: photo.id, child: Image.network(photo.imageUrl)),
-                    Positioned(
-                      left: 10,
-                      top: 30,
-                      child: GoBackButtonHighlighted(),
-                    ),
-                  ],
-                ),
-                ArtistBar(userData: userData),
-                PhotoDetails(photo: photo),
+                //ArtistBar(userData: userData),
+                Hero(tag: photo.id, child: Image.network(photo.imageUrl)),
+                PhotoDetails(photo: photo, user: userData),
               ],
             ),
           );

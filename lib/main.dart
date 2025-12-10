@@ -51,6 +51,9 @@ class Mapory extends StatelessWidget {
           textTheme: GoogleFonts.exoTextTheme().apply(
             bodyColor: Color(0xFF464747),
           ),
+          primaryTextTheme: GoogleFonts.exoTextTheme().apply(
+            bodyColor: Color(0xFF464747),
+          ),
         ),
         routerConfig: AppRouter.router,
       ),

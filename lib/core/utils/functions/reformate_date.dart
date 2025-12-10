@@ -1,18 +1,19 @@
 String reformatDate(String timeStamp) {
-  List months = [
-    'jan',
-    'feb',
-    'mar',
+  List<String> months = [
+    'january',
+    'february',
+    'march',
     'april',
     'may',
-    'jun',
+    'june',
     'july',
-    'aug',
-    'sep',
-    'oct',
-    'nov',
-    'dec',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
   ];
+
   String date = timeStamp.split('T')[0];
   String formattedDate =
       "${date.split('-')[2]} ${months[int.parse(date.split('-')[1]) - 1]} ${date.split('-')[0]}";
