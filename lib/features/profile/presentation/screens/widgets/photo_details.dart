@@ -1,9 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:mapory/core/utils/functions/reformate_date.dart';
+import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/profile/data/models/user_model.dart';
+import 'package:mapory/features/profile/data/repo/user_photos_repo_impl.dart';
+import 'package:mapory/features/profile/data/repo/user_repo_impl.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/likes_bar.dart';
 
 class PhotoDetails extends StatelessWidget {
   const PhotoDetails({super.key, required this.photo, required this.user});
@@ -13,15 +17,13 @@ class PhotoDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final UserPhotosRepoImpl userRepo = getIt<UserPhotosRepoImpl>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          //Add Likes bar
-
-          //
-          //
+          LikesBar(userRepo: userRepo, photo: photo),
           RichText(
             text: TextSpan(
               style: Styles.textStyle18,
@@ -61,30 +63,3 @@ class PhotoDetails extends StatelessWidget {
     );
   }
 }
-
-// class DetailsElement extends StatelessWidget {
-//   final String heading;
-//   final String content;
-//   const DetailsElement({
-//     super.key,
-//     required this.heading,
-//     required this.content,
-//   });
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Column(
-//       crossAxisAlignment: CrossAxisAlignment.start,
-//       children: [
-//         Text(
-//           heading,
-//           style: Styles.textStyle14.copyWith(
-//             fontWeight: FontWeight.bold,
-//             color: Colors.grey,
-//           ),
-//         ),
-//         Text(content, style: Styles.textStyle18),
-//       ],
-//     );
-//   }
-// }
