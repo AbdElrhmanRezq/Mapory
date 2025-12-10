@@ -1,5 +1,7 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/functions/reformate_date.dart';
 import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/core/utils/styles.dart';
@@ -34,7 +36,12 @@ class PhotoDetails extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                  recognizer: TapGestureRecognizer()..onTap = () {},
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      GoRouter.of(
+                        context,
+                      ).push(AppRouter.kPublicProfile, extra: user);
+                    },
                 ),
                 TextSpan(
                   text:

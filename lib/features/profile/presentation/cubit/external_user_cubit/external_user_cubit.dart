@@ -7,7 +7,6 @@ part 'external_user_state.dart';
 
 class ExternalUserCubit extends Cubit<ExternalUserState> {
   final UserRepo userRepo;
-
   ExternalUserCubit(this.userRepo) : super(ExternalUserInitial());
   Future<void> fetchUserData({required String userId}) async {
     emit(ExternalUserLoading());

@@ -26,7 +26,7 @@ class LikesBar extends StatelessWidget {
         } else if (asyncSnapshot.hasData) {
           List<UserModel> likes = asyncSnapshot.data ?? [];
           return SizedBox(
-            height: 30,
+            height: 25,
             child: ListView(
               padding: EdgeInsets.zero,
               shrinkWrap: false,
