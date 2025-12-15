@@ -17,7 +17,7 @@ class UserName extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            state.userData.username,
+            '${state.userData.username} ',
             style: Styles.textStyle20.copyWith(
               color: KMainColor,
               fontWeight: FontWeight.bold,
