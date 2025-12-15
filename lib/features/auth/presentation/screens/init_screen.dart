@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/features/auth/presentation/screens/widgets/init_screen_body.dart';
+import 'package:mapory/features/home/presentation/screens/home_screen.dart';
 import 'package:mapory/features/profile/presentation/screens/profile_screen.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -17,7 +18,7 @@ class InitScreen extends StatelessWidget {
         if (session == null) {
           return Scaffold(body: InitScreenBody());
         } else {
-          return ProfileScreen();
+          return HomeScreen();
         }
       },
     );
