@@ -70,6 +70,7 @@ class MapCubit extends Cubit<MapState> {
         CameraPosition(target: target, zoom: zoom),
       ),
     );
+    //mapController?.animateCamera(CameraUpdate.zoomTo(zoom));
   }
 
   // Future<void> _addMarkers() async {

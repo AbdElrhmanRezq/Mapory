@@ -20,19 +20,24 @@ class HomeScreenBodyState extends State<HomeScreenBody> {
     return BlocBuilder<MapCubit, MapState>(
       builder: (context, state) {
         return Scaffold(
-          body: GoogleMap(
-            zoomControlsEnabled: false,
-            myLocationButtonEnabled: false,
-            style: state.mapStyle,
-            myLocationEnabled: state.permissionGranted,
-            initialCameraPosition: CameraPosition(
-              target: const LatLng(30.0444, 31.2357),
-              zoom: context.read<MapCubit>().zoom,
-            ),
-            markers: state.markers,
-            onMapCreated: (controller) {
-              context.read<MapCubit>().setController(controller);
-            },
+          body: Stack(
+            children: [
+              GoogleMap(
+                zoomControlsEnabled: false,
+                myLocationButtonEnabled: false,
+                style: state.mapStyle,
+                myLocationEnabled: state.permissionGranted,
+                initialCameraPosition: CameraPosition(
+                  target: const LatLng(30.0444, 31.2357),
+                  zoom: context.read<MapCubit>().zoom,
+                ),
+                markers: state.markers,
+                onMapCreated: (controller) {
+                  context.read<MapCubit>().setController(controller);
+                },
+              ),
+              ProfileButton(),
+            ],
           ),
         );
       },
@@ -45,13 +50,17 @@ class ProfileButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
-      child: IconButton(
-        onPressed: () {
-          GoRouter.of(context).push(AppRouter.kProfile);
-        },
-        icon: Icon(Icons.person, color: KMainColor),
+    return Positioned(
+      top: 36,
+      right: 12,
+      child: CircleAvatar(
+        backgroundColor: KMainBackground,
+        child: IconButton(
+          onPressed: () {
+            GoRouter.of(context).push(AppRouter.kProfile);
+          },
+          icon: Icon(Icons.person, color: KMainColor),
+        ),
       ),
     );
   }
