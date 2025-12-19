@@ -6,4 +6,5 @@ class AssetsData {
   static const person2 = 'assets/images/people/person2.png';
   static const artistBackGround =
       'assets/images/backgrounds/artist_background.png';
+  static const mapStyle = 'assets/map_style.json';
 }

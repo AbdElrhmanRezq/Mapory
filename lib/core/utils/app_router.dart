@@ -12,6 +12,7 @@ import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/data/repo/user_repo_impl.dart';
 import 'package:mapory/features/profile/presentation/cubit/external_user_cubit/external_user_cubit.dart';
 import 'package:mapory/features/profile/presentation/screens/photo_screen.dart';
+import 'package:mapory/features/profile/presentation/screens/profile_screen.dart';
 import 'package:mapory/features/profile/presentation/screens/public_profile_screen.dart';
 
 abstract class AppRouter {
@@ -20,6 +21,8 @@ abstract class AppRouter {
   static const kSignupRoute = '/signup';
   static const kHomeRoute = '/home';
   static const kPhotoRoute = '/photo';
+  static const kProfile = '/profile';
+
   static const kPublicProfile = '/public_profile';
 
   static final router = GoRouter(
@@ -28,6 +31,7 @@ abstract class AppRouter {
       GoRoute(path: kHomeRoute, builder: (context, state) => HomeScreen()),
       GoRoute(path: kLoginRoute, builder: (context, state) => LoginScreen()),
       GoRoute(path: kSignupRoute, builder: (context, state) => SignupScreen()),
+      GoRoute(path: kProfile, builder: (context, state) => ProfileScreen()),
       GoRoute(
         path: kPhotoRoute,
         builder: (context, state) {
