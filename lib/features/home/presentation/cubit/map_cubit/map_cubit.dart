@@ -1,27 +1,27 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/features/home/presentation/cubit/map_cubit/map_state.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MapCubit extends Cubit<MapState> {
   MapCubit() : super(const MapState());
-
+  double zoom = 16;
   StreamSubscription<Position>? _positionStream;
   GoogleMapController? mapController;
 
   Future<void> init(BuildContext context) async {
-    await _loadMapStyle(context);
+    await _loadMapStyle();
     await _requestPermission();
   }
 
-  Future<void> _loadMapStyle(BuildContext context) async {
-    final style = await DefaultAssetBundle.of(
-      context,
-    ).loadString('assets/map_style.json');
+  Future<void> _loadMapStyle() async {
+    final style = await rootBundle.loadString(AssetsData.mapStyle);
     emit(state.copyWith(mapStyle: style));
   }
 
@@ -29,11 +29,11 @@ class MapCubit extends Cubit<MapState> {
     final status = await Permission.location.request();
     if (status.isGranted) {
       emit(state.copyWith(permissionGranted: true));
-      _getCurrentLocation();
+      getCurrentLocation();
     }
   }
 
-  Future<void> _getCurrentLocation() async {
+  Future<void> getCurrentLocation() async {
     final position = await Geolocator.getCurrentPosition(
       locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
     );
@@ -63,9 +63,12 @@ class MapCubit extends Cubit<MapState> {
     //_addMarkers();
   }
 
-  void _moveCamera(LatLng target) {
+  void _moveCamera(LatLng target) async {
+    zoom = await mapController?.getZoomLevel() ?? zoom;
     mapController?.animateCamera(
-      CameraUpdate.newCameraPosition(CameraPosition(target: target, zoom: 14)),
+      CameraUpdate.newCameraPosition(
+        CameraPosition(target: target, zoom: zoom),
+      ),
     );
   }
 

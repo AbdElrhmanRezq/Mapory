@@ -17,26 +17,22 @@ class HomeScreenBody extends StatefulWidget {
 class HomeScreenBodyState extends State<HomeScreenBody> {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => MapCubit()..init(context),
-      child: BlocBuilder<MapCubit, MapState>(
-        builder: (context, state) {
-          return Scaffold(
-            body: GoogleMap(
-              style: state.mapStyle,
-              myLocationEnabled: state.permissionGranted,
-              initialCameraPosition: const CameraPosition(
-                target: LatLng(30.0444, 31.2357),
-                zoom: 12,
-              ),
-              markers: state.markers,
-              onMapCreated: (controller) {
-                context.read<MapCubit>().setController(controller);
-              },
+    return BlocBuilder<MapCubit, MapState>(
+      builder: (context, state) {
+        return Scaffold(
+          body: GoogleMap(
+            style: state.mapStyle,
+            initialCameraPosition: const CameraPosition(
+              target: LatLng(30.0444, 31.2357),
+              zoom: 12,
             ),
-          );
-        },
-      ),
+            markers: state.markers,
+            onMapCreated: (controller) {
+              context.read<MapCubit>().setController(controller);
+            },
+          ),
+        );
+      },
     );
   }
 }
