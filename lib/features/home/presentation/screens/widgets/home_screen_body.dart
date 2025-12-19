@@ -21,10 +21,13 @@ class HomeScreenBodyState extends State<HomeScreenBody> {
       builder: (context, state) {
         return Scaffold(
           body: GoogleMap(
+            zoomControlsEnabled: false,
+            myLocationButtonEnabled: false,
             style: state.mapStyle,
-            initialCameraPosition: const CameraPosition(
-              target: LatLng(30.0444, 31.2357),
-              zoom: 12,
+            myLocationEnabled: state.permissionGranted,
+            initialCameraPosition: CameraPosition(
+              target: const LatLng(30.0444, 31.2357),
+              zoom: context.read<MapCubit>().zoom,
             ),
             markers: state.markers,
             onMapCreated: (controller) {

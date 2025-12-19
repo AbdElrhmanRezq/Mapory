@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mapory/consts.dart';
 import 'package:mapory/features/home/presentation/cubit/map_cubit/map_cubit.dart';
 import 'package:mapory/features/home/presentation/cubit/map_cubit/map_state.dart';
 
@@ -14,6 +15,8 @@ class HomeFloatingActionButton extends StatelessWidget {
           onPressed: () async {
             await context.read<MapCubit>().getCurrentLocation();
           },
+          backgroundColor: KMainBackground,
+          child: Icon(Icons.my_location, color: KMainColor),
         );
       },
     );

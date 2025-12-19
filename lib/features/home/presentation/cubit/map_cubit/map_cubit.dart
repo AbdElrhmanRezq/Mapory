@@ -11,7 +11,7 @@ import 'package:permission_handler/permission_handler.dart';
 
 class MapCubit extends Cubit<MapState> {
   MapCubit() : super(const MapState());
-  double zoom = 16;
+  double zoom = 18;
   StreamSubscription<Position>? _positionStream;
   GoogleMapController? mapController;
 
