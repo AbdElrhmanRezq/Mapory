@@ -8,6 +8,7 @@ class PhotoModel {
   final double lat;
   final String visibility;
   final String createdAt;
+  final String memoryId;
 
   PhotoModel({
     required this.id,
@@ -19,6 +20,7 @@ class PhotoModel {
     required this.lat,
     required this.visibility,
     required this.createdAt,
+    required this.memoryId,
   });
   factory PhotoModel.fromMap(Map<String, dynamic> map) {
     return PhotoModel(
@@ -31,6 +33,7 @@ class PhotoModel {
       lat: map['lat']?.toDouble() ?? 0.0,
       visibility: map['visibility'] ?? 'public',
       createdAt: map['created_at'].toString(),
+      memoryId: map['m_id'] ?? '',
     );
   }
   Map<String, dynamic> toMap() {
@@ -44,6 +47,7 @@ class PhotoModel {
       'lat': lat,
       'visibility': visibility,
       'created_at': DateTime.now(),
+      'm_id': memoryId,
     };
   }
 }
