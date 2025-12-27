@@ -1,3 +1,5 @@
+import 'package:mapory/features/home/data/models/photo_model.dart';
+
 class MemoryModel {
   final DateTime createdAt;
   final String caption;
@@ -5,8 +7,9 @@ class MemoryModel {
   final String memoryId;
   final double lat;
   final double long;
+  List<PhotoModel> photos = [];
 
-  const MemoryModel({
+  MemoryModel({
     required this.createdAt,
     required this.caption,
     required this.userId,
