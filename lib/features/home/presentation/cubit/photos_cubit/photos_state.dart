@@ -7,9 +7,11 @@ final class PhotosInitial extends PhotosState {}
 
 final class PhotosLoading extends PhotosState {}
 
+final class PhotosUploading extends PhotosState {}
+
 final class PhotosLoaded extends PhotosState {}
 
 final class PhotosError extends PhotosState {
-  String message;
+  final String message;
   PhotosError(this.message);
 }
