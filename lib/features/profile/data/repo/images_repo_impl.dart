@@ -23,7 +23,11 @@ class ImagesRepoImpl implements ImagesRepo {
   }
 
   @override
-  Future<String> uploadImage(String type, CroppedFile file) async {
+  Future<String> uploadImage(
+    String type,
+    CroppedFile file,
+    String storagePath,
+  ) async {
     try {
       final imageExtension = file.path.split('.').last.toLowerCase();
       final imageBytes = await file.readAsBytes();
@@ -32,7 +36,7 @@ class ImagesRepoImpl implements ImagesRepo {
           '${supabase.auth.currentUser?.id}/$type.$imageExtension';
       print(imagePath);
       await supabase.storage
-          .from('profile_images')
+          .from(storagePath)
           .uploadBinary(
             imagePath,
             imageBytes,

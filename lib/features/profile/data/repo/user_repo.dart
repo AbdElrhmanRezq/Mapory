@@ -20,7 +20,3 @@ abstract class UserRepo {
     required int offset,
   });
 }
-
-//reomve the visibility from photos and add it to memories
-//Add the memory count method
-//Added Get user memories
