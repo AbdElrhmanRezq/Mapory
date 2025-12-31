@@ -11,6 +11,10 @@ class ImageHelper {
     : _imagePicker = imagePicker ?? ImagePicker(),
       _imageCropper = imageCropper ?? ImageCropper();
 
+  Future<List<XFile>> pickMultipleImages({int imageQuality = 100}) async {
+    return await _imagePicker.pickMultiImage(imageQuality: imageQuality);
+  }
+
   Future<XFile?> pickImage({
     ImageSource source = ImageSource.gallery,
     int imageQuality = 100,
