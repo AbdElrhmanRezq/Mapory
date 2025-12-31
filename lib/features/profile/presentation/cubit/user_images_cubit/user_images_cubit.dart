@@ -28,7 +28,11 @@ class UserImagesCubit extends Cubit<UserImagesState> {
           emit(UserImagesInitial());
         }
 
-        final imageUrl = await imagesRepo.uploadImage(type, croppedImage);
+        final imageUrl = await imagesRepo.uploadImage(
+          type,
+          croppedImage,
+          "profile_images",
+        );
 
         await imagesRepo.updateImageData(imageUrl, type);
         emit(UserImagesUploaded(imageUrl: imageUrl));
