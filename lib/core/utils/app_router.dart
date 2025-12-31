@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapory/core/utils/service_locator.dart';
 
 import 'package:mapory/features/auth/presentation/screens/final_scr.dart';
@@ -7,6 +8,8 @@ import 'package:mapory/features/auth/presentation/screens/init_screen.dart';
 import 'package:mapory/features/auth/presentation/screens/login_screen.dart';
 import 'package:mapory/features/auth/presentation/screens/signup_screen.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
+import 'package:mapory/features/home/presentation/cubit/photos_cubit/photos_cubit.dart';
+import 'package:mapory/features/home/presentation/screens/create_memory_screen.dart';
 import 'package:mapory/features/home/presentation/screens/home_screen.dart';
 import 'package:mapory/features/profile/data/models/user_model.dart';
 import 'package:mapory/features/profile/data/repo/user_repo_impl.dart';
@@ -22,8 +25,8 @@ abstract class AppRouter {
   static const kHomeRoute = '/home';
   static const kPhotoRoute = '/photo';
   static const kProfile = '/profile';
-
   static const kPublicProfile = '/public_profile';
+  static const kCreateMemoryRoute = '/home/create_memory';
 
   static final router = GoRouter(
     routes: [
@@ -48,6 +51,16 @@ abstract class AppRouter {
                 ExternalUserCubit(getIt<UserRepoImpl>())
                   ..fetchUserData(userId: user.id),
             child: PublicProfileScreen(user: user),
+          );
+        },
+      ),
+      GoRoute(
+        path: kCreateMemoryRoute,
+        builder: (context, state) {
+          final position = state.extra as LatLng;
+          return BlocProvider(
+            create: (context) => PhotosCubit(position),
+            child: CreateMemoryScreen(position: position),
           );
         },
       ),

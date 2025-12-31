@@ -3,8 +3,9 @@ import 'package:go_router/go_router.dart';
 import 'package:mapory/core/utils/styles.dart';
 
 class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
+  final List<IconButton>? actions;
   final String? title;
-  const SimpleAppBar({super.key, this.title});
+  const SimpleAppBar({super.key, this.title, this.actions});
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +24,8 @@ class SimpleAppBar extends StatelessWidget implements PreferredSizeWidget {
             )
           : null,
       centerTitle: true,
+      scrolledUnderElevation: 0,
+      actions: actions ?? [],
     );
   }
 

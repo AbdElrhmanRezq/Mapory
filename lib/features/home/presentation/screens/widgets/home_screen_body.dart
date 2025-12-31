@@ -36,7 +36,9 @@ class HomeScreenBodyState extends State<HomeScreenBody> {
                   context.read<MapCubit>().setController(controller);
                 },
                 onLongPress: (LatLng position) {
-                  print(position);
+                  GoRouter.of(
+                    context,
+                  ).push(AppRouter.kCreateMemoryRoute, extra: position);
                 },
               ),
               ProfileButton(),
