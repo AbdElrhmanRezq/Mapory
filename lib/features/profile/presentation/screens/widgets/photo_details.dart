@@ -43,13 +43,13 @@ class PhotoDetails extends StatelessWidget {
                       ).push(AppRouter.kPublicProfile, extra: user);
                     },
                 ),
-                TextSpan(
-                  text:
-                      "${photo.caption}${photo.caption}${photo.caption}${photo.caption}",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.bodyMedium!.copyWith(fontSize: 16),
-                ),
+                // TextSpan(
+                //   text:
+                //       "${photo.caption}${photo.caption}${photo.caption}${photo.caption}",
+                //   style: Theme.of(
+                //     context,
+                //   ).textTheme.bodyMedium!.copyWith(fontSize: 16),
+                // ),
               ],
             ),
           ),
