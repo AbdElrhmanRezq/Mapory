@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
 
 class MemoryModel {
@@ -6,7 +7,7 @@ class MemoryModel {
   final String userId;
   final String memoryId;
   final double lat;
-  final double long;
+  final double lng;
   List<PhotoModel> photos = [];
 
   MemoryModel({
@@ -15,7 +16,7 @@ class MemoryModel {
     required this.userId,
     required this.memoryId,
     required this.lat,
-    required this.long,
+    required this.lng,
   });
 
   factory MemoryModel.fromMap(Map<String, dynamic> map) {
@@ -25,7 +26,7 @@ class MemoryModel {
       userId: map['u_id'],
       memoryId: map['m_id'],
       lat: (map['lat'] as num).toDouble(),
-      long: (map['lng'] as num).toDouble(),
+      lng: (map['lng'] as num).toDouble(),
     );
   }
 
@@ -36,7 +37,17 @@ class MemoryModel {
       'u_id': userId,
       'm_id': memoryId,
       'lat': lat,
-      'lng': long,
+      'lng': lng,
     };
+  }
+
+  Marker toMarkers(BitmapDescriptor icon) {
+    final marker = Marker(
+      markerId: MarkerId(memoryId),
+      position: LatLng(lat, lng),
+      infoWindow: InfoWindow(title: caption),
+      icon: icon,
+    );
+    return marker;
   }
 }

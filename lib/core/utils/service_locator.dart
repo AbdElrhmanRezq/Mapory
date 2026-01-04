@@ -1,5 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get_it/get_it.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_cropper/image_cropper.dart';
+import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/image_helper.dart';
 import 'package:mapory/features/auth/data/repo/auth_repo_impl.dart';
 import 'package:mapory/features/home/data/repo/memories_repo.dart';
@@ -11,7 +14,7 @@ import 'package:mapory/features/profile/data/repo/user_repo_impl.dart';
 
 final getIt = GetIt.instance;
 
-void setup() {
+void setup() async {
   getIt.registerSingleton<SupabaseClient>(Supabase.instance.client);
   getIt.registerSingleton<AuthRepoImpl>(AuthRepoImpl());
   getIt.registerSingleton<UserRepoImpl>(UserRepoImpl());

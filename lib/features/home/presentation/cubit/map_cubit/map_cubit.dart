@@ -19,10 +19,12 @@ class MapCubit extends Cubit<MapState> {
   double zoom = 18;
   StreamSubscription<Position>? _positionStream;
   GoogleMapController? mapController;
+  late BitmapDescriptor icon;
 
   Future<void> init(BuildContext context) async {
     await _loadMapStyle();
     await _requestPermission();
+    icon = await BitmapDescriptor.asset(ImageConfiguration(), AssetsData.icon);
   }
 
   Future<void> _loadMapStyle() async {
@@ -55,6 +57,20 @@ class MapCubit extends Cubit<MapState> {
             return value;
           }),
     );
+    final updatedMarkers = {
+      ...state.markers,
+      ...memories.map(
+        (memory) => Marker(
+          markerId: MarkerId(memory.memoryId),
+          position: LatLng(memory.lat, memory.lng),
+          icon: icon,
+          infoWindow: InfoWindow(title: memory.caption),
+        ),
+      ),
+    };
+
+    emit(state.copyWith(markers: updatedMarkers));
+
     _startTracking();
   }
 
