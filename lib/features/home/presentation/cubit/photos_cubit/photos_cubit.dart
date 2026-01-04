@@ -6,6 +6,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:mapory/core/utils/image_helper.dart';
 import 'package:mapory/core/utils/service_locator.dart';
+import 'package:mapory/features/home/data/repo/memories_repo.dart';
 import 'package:mapory/features/profile/data/repo/images_repo_impl.dart';
 import 'package:mapory/features/profile/data/repo/user_photos_repo.dart';
 import 'package:mapory/features/profile/data/repo/user_photos_repo_impl.dart';
@@ -65,9 +66,9 @@ class PhotosCubit extends Cubit<PhotosState> {
     required List<String> photosUrls,
     String visibility = "private",
   }) async {
-    final UserPhotosRepo userPhotosRepo = getIt<UserPhotosRepoImpl>();
+    final MemoriesRepo memoriesRepo = getIt<MemoriesRepo>();
     try {
-      userPhotosRepo.createMemory(
+      memoriesRepo.createMemory(
         urls: photosUrls,
         caption: captionController.text,
         position: position,
