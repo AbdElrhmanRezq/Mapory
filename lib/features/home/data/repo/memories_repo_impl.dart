@@ -6,6 +6,8 @@ import 'package:mapory/features/home/data/repo/memories_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class MemoriesRepoImpl implements MemoriesRepo {
+  final SupabaseClient supabase = getIt<SupabaseClient>();
+
   @override
   Future<void> createMemory({
     required List<String> urls,
@@ -49,17 +51,32 @@ class MemoriesRepoImpl implements MemoriesRepo {
     int limit = 20,
     required LatLng position,
   }) async {
-    final SupabaseClient supabase = getIt<SupabaseClient>();
-
-    final response = await supabase.rpc(
-      'get_nearby_memories',
-      params: {
-        'user_lat': position.latitude,
-        'user_lng': position.longitude,
-        'radius_meters': 100,
-      },
-    );
-    final List<MemoryModel> memories = (response as List)
+    List response;
+    if (userId != "") {
+      response = await supabase.rpc(
+        'get_nearby_memories',
+        params: {
+          'user_lat': position.latitude,
+          'user_lng': position.longitude,
+          'radius_meters': 100,
+          'limit_count': 20,
+          'visibility_filter': visibility,
+          'user_id_filter': userId,
+        },
+      );
+    } else {
+      response = await supabase.rpc(
+        'get_nearby_memories',
+        params: {
+          'user_lat': position.latitude,
+          'user_lng': position.longitude,
+          'radius_meters': 100,
+          'limit_count': 20,
+          'visibility_filter': visibility,
+        },
+      );
+    }
+    final List<MemoryModel> memories = (response)
         .map((json) => MemoryModel.fromMap(json))
         .toList();
 
@@ -70,8 +87,6 @@ class MemoriesRepoImpl implements MemoriesRepo {
   }
 
   Future<List<PhotoModel>> getMemoryPhotos(String memoryId) async {
-    final SupabaseClient supabase = getIt<SupabaseClient>();
-
     final response =
         await supabase.from('photos').select().eq('m_id', memoryId) as List;
 

@@ -6,10 +6,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapory/core/utils/assets.dart';
+import 'package:mapory/core/utils/service_locator.dart';
+import 'package:mapory/features/home/data/models/memory_model.dart';
+import 'package:mapory/features/home/data/repo/memories_repo.dart';
 import 'package:mapory/features/home/presentation/cubit/map_cubit/map_state.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class MapCubit extends Cubit<MapState> {
+  final MemoriesRepo memoriesRepo = getIt.get<MemoriesRepo>();
+  final List<MemoryModel> memories = [];
   MapCubit() : super(const MapState());
   double zoom = 18;
   StreamSubscription<Position>? _positionStream;
@@ -42,6 +47,14 @@ class MapCubit extends Cubit<MapState> {
     emit(state.copyWith(currentLocation: location, isLoading: false));
 
     _moveCamera(location);
+    memories.addAll(
+      await memoriesRepo
+          .getMemories(userId: '', position: location, range: 100)
+          .then((value) {
+            print(value);
+            return value;
+          }),
+    );
     _startTracking();
   }
 
