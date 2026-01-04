@@ -13,5 +13,6 @@ abstract class MemoriesRepo {
     required String userId,
     int range = 100,
     String visibility = "public",
+    required LatLng position,
   });
 }

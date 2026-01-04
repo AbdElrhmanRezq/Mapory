@@ -1,6 +1,7 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/features/home/data/models/memory_model.dart';
+import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/home/data/repo/memories_repo.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -45,8 +46,39 @@ class MemoriesRepoImpl implements MemoriesRepo {
     required String userId,
     int range = 100,
     String visibility = "public",
-  }) {
-    // TODO: implement getMemories
-    throw UnimplementedError();
+    int limit = 20,
+    required LatLng position,
+  }) async {
+    final SupabaseClient supabase = getIt<SupabaseClient>();
+
+    final response = await supabase.rpc(
+      'get_nearby_memories',
+      params: {
+        'user_lat': position.latitude,
+        'user_lng': position.longitude,
+        'radius_meters': 100,
+      },
+    );
+    final List<MemoryModel> memories = (response as List)
+        .map((json) => MemoryModel.fromMap(json))
+        .toList();
+
+    memories.forEach((memory) async {
+      memory.photos.addAll(await getMemoryPhotos(memory.memoryId));
+    });
+    return memories;
+  }
+
+  Future<List<PhotoModel>> getMemoryPhotos(String memoryId) async {
+    final SupabaseClient supabase = getIt<SupabaseClient>();
+
+    final response =
+        await supabase.from('photos').select().eq('m_id', memoryId) as List;
+
+    final List<PhotoModel> photos = response
+        .map((json) => PhotoModel.fromMap(json))
+        .toList();
+
+    return photos;
   }
 }
