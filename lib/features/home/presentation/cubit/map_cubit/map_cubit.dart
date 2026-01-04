@@ -24,7 +24,10 @@ class MapCubit extends Cubit<MapState> {
   Future<void> init(BuildContext context) async {
     await _loadMapStyle();
     await _requestPermission();
-    icon = await BitmapDescriptor.asset(ImageConfiguration(), AssetsData.icon);
+    icon = await BitmapDescriptor.asset(
+      ImageConfiguration(size: const Size(40, 40)),
+      AssetsData.icon,
+    );
   }
 
   Future<void> _loadMapStyle() async {

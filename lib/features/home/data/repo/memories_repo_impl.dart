@@ -70,12 +70,13 @@ class MemoriesRepoImpl implements MemoriesRepo {
         params: {
           'user_lat': position.latitude,
           'user_lng': position.longitude,
-          'radius_meters': 100,
+          'radius_meters': 1000,
           'limit_count': 20,
           'visibility_filter': visibility,
         },
       );
     }
+
     final List<MemoryModel> memories = (response)
         .map((json) => MemoryModel.fromMap(json))
         .toList();
