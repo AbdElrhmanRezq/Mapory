@@ -25,7 +25,7 @@ class MemoryModel {
       userId: map['u_id'],
       memoryId: map['m_id'],
       lat: (map['lat'] as num).toDouble(),
-      long: (map['long'] as num).toDouble(),
+      long: (map['lng'] as num).toDouble(),
     );
   }
 
@@ -36,7 +36,7 @@ class MemoryModel {
       'u_id': userId,
       'm_id': memoryId,
       'lat': lat,
-      'long': long,
+      'lng': long,
     };
   }
 }
