@@ -56,9 +56,9 @@ class PublicProfileScreenBody extends StatelessWidget {
                   SizedBox(height: 10),
                   InfoBar(
                     likesCount: state.likesCount,
-                    photosCount: state.photosCount,
+                    photosCount: state.memoriesCount,
                   ),
-                  UserPhotos(totalPhotos: state.photosCount),
+                  UserMemories(totalPhotos: state.memoriesCount),
                 ],
               ),
             ),

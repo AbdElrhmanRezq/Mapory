@@ -9,9 +9,9 @@ final class UserDataLoading extends UserDataState {}
 
 final class UserDataLoaded extends UserDataState {
   final UserModel userData;
-  final int photosCount;
+  final int memoriesCount;
   final int likesCount;
-  UserDataLoaded(this.userData, this.photosCount, this.likesCount);
+  UserDataLoaded(this.userData, this.memoriesCount, this.likesCount);
 }
 
 final class UserDataError extends UserDataState {

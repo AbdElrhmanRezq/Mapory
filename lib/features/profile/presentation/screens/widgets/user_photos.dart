@@ -6,9 +6,9 @@ import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_photos_cubit/user_photos_cubit.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/photos_grid.dart';
 
-class UserPhotos extends StatelessWidget {
+class UserMemories extends StatelessWidget {
   final int totalPhotos;
-  const UserPhotos({super.key, required this.totalPhotos});
+  const UserMemories({super.key, required this.totalPhotos});
 
   @override
   Widget build(BuildContext context) {

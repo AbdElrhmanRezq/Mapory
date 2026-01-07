@@ -9,9 +9,9 @@ final class ExternalUserLoading extends ExternalUserState {}
 
 final class ExternalUserLoaded extends ExternalUserState {
   final UserModel userData;
-  final int photosCount;
+  final int memoriesCount;
   final int likesCount;
-  ExternalUserLoaded(this.userData, this.photosCount, this.likesCount);
+  ExternalUserLoaded(this.userData, this.memoriesCount, this.likesCount);
 }
 
 final class ExternalUserError extends ExternalUserState {

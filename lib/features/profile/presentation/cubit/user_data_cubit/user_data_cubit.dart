@@ -11,22 +11,22 @@ class UserDataCubit extends Cubit<UserDataState> {
   Future<void> fetchUserData() async {
     emit(UserDataLoading());
     final result = await userRepo.getUserData();
-    final photosCount = await userRepo.getUserPhotosCount();
+    final memoriesCount = await userRepo.getUserMemoriesCount();
     final likesCount = await userRepo.getLikesCount();
     result.fold(
       (failure) => emit(UserDataError(failure.message)),
-      (userData) => emit(UserDataLoaded(userData, photosCount, likesCount)),
+      (userData) => emit(UserDataLoaded(userData, memoriesCount, likesCount)),
     );
   }
 
   Future<void> changeUserName(String newName) async {
     emit(UserDataLoading());
     final result = await userRepo.changeUserName(newName);
-    final photosCount = await userRepo.getUserPhotosCount();
+    final memoriesCount = await userRepo.getUserMemoriesCount();
     final likesCount = await userRepo.getLikesCount();
     result.fold(
       (failure) => emit(UserDataError(failure.message)),
-      (userData) => emit(UserDataLoaded(userData, photosCount, likesCount)),
+      (userData) => emit(UserDataLoaded(userData, memoriesCount, likesCount)),
     );
   }
 }

@@ -11,11 +11,12 @@ class ExternalUserCubit extends Cubit<ExternalUserState> {
   Future<void> fetchUserData({required String userId}) async {
     emit(ExternalUserLoading());
     final result = await userRepo.getUserData(id: userId);
-    final photosCount = await userRepo.getUserPhotosCount(id: userId);
+    final memoriesCount = await userRepo.getUserMemoriesCount(id: userId);
     final likesCount = await userRepo.getLikesCount(id: userId);
     result.fold(
       (failure) => emit(ExternalUserError(failure.message)),
-      (userData) => emit(ExternalUserLoaded(userData, photosCount, likesCount)),
+      (userData) =>
+          emit(ExternalUserLoaded(userData, memoriesCount, likesCount)),
     );
   }
 }

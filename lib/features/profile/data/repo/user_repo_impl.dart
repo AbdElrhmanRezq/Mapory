@@ -45,18 +45,19 @@ class UserRepoImpl implements UserRepo {
   }
 
   @override
-  Future<int> getUserPhotosCount({String id = ''}) async {
+  Future<int> getUserMemoriesCount({String id = ''}) async {
     final supabase = getIt<SupabaseClient>();
-    final userId = id != '' ? id : supabase.auth.currentUser?.id;
-    final countResponse;
-    countResponse = await supabase.rpc(
-      'photos_count_by_user',
-      params: {'_u_id': userId},
-    );
+    final userId = id.isNotEmpty ? id : supabase.auth.currentUser?.id;
 
-    final count = countResponse as int? ?? 0;
+    if (userId == null) return 0;
 
-    return count;
+    final response = await supabase
+        .from('memories')
+        .select('m_id')
+        .eq('u_id', userId)
+        .count(CountOption.exact);
+
+    return response.count ?? 0;
   }
 
   @override

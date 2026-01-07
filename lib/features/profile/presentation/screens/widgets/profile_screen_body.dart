@@ -94,10 +94,10 @@ class ProfileScreenBody extends StatelessWidget {
                   SizedBox(height: 10),
                   InfoBar(
                     likesCount: state.likesCount,
-                    photosCount: state.photosCount,
+                    photosCount: state.memoriesCount,
                   ),
                   //SizedBox(height: 10),
-                  UserPhotos(totalPhotos: state.photosCount),
+                  UserMemories(totalPhotos: state.memoriesCount),
                 ],
               ),
             ),
