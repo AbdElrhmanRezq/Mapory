@@ -48,7 +48,7 @@ class ImagesRepoImpl implements ImagesRepo {
 
       print('Image uploaded: $imagePath');
 
-      return supabase.storage.from('profile_images').getPublicUrl(imagePath);
+      return supabase.storage.from(storagePath).getPublicUrl(imagePath);
     } on PostgrestException catch (e) {
       print('PostgrestException: ${e.message}');
       throw e;
