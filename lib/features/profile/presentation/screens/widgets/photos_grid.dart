@@ -3,18 +3,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/styles.dart';
+import 'package:mapory/features/home/data/models/memory_model.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_photos_cubit/user_photos_cubit.dart';
 
 class PhotosGrid extends StatelessWidget {
   const PhotosGrid({
     super.key,
-    required this.totalPhotos,
-    required this.photos,
+    required this.totalMemories,
+    required this.memories,
   });
 
-  final int totalPhotos;
-  final List<PhotoModel> photos;
+  final int totalMemories;
+  final List<MemoryModel> memories;
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +28,21 @@ class PhotosGrid extends StatelessWidget {
         mainAxisSpacing: 1,
         crossAxisSpacing: 1,
       ),
-      itemCount: totalPhotos > photos.length
-          ? photos.length + 1
-          : photos.length,
+      itemCount: totalMemories > memories.length
+          ? memories.length + 1
+          : memories.length,
       itemBuilder: (context, index) {
         ////////////////////////////////////
         ////  The next checks are for
         ////  adding the load more
         ////  photos button
         ////////////////////////////////////
-        if (totalPhotos > photos.length) {
-          if (index != (photos.length)) {
-            return Image.network(photos[index].imageUrl, fit: BoxFit.cover);
+        if (totalMemories > memories.length) {
+          if (index != (memories.length)) {
+            return Image.network(
+              memories[index].photos[0].imageUrl,
+              fit: BoxFit.cover,
+            );
           } else {
             return IconButton(
               onPressed: () {
@@ -49,7 +53,7 @@ class PhotosGrid extends StatelessWidget {
                 children: [
                   Text("Load More", style: Styles.textStyle16),
                   Text(
-                    "+${totalPhotos - photos.length}",
+                    "+${totalMemories - memories.length}",
                     style: Styles.textStyle16,
                   ),
                 ],
@@ -61,11 +65,14 @@ class PhotosGrid extends StatelessWidget {
             onTap: () {
               GoRouter.of(
                 context,
-              ).push(AppRouter.kPhotoRoute, extra: photos[index]);
+              ).push(AppRouter.kPhotoRoute, extra: memories[index].photos[0]);
             },
             child: Hero(
-              tag: photos[index].id,
-              child: Image.network(photos[index].imageUrl, fit: BoxFit.cover),
+              tag: memories[index].photos[0].id,
+              child: Image.network(
+                memories[index].photos[0].imageUrl,
+                fit: BoxFit.cover,
+              ),
             ),
           );
         }

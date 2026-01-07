@@ -81,20 +81,47 @@ class MemoriesRepoImpl implements MemoriesRepo {
         .map((json) => MemoryModel.fromMap(json))
         .toList();
 
-    memories.forEach((memory) async {
-      memory.photos.addAll(await getMemoryPhotos(memory.memoryId));
-    });
+    for (final memory in memories) {
+      final photos = await getMemoryPhotos(memory.memoryId);
+      memory.photos.addAll(photos);
+    }
     return memories;
   }
 
   Future<List<PhotoModel>> getMemoryPhotos(String memoryId) async {
     final response =
         await supabase.from('photos').select().eq('m_id', memoryId) as List;
-
     final List<PhotoModel> photos = response
         .map((json) => PhotoModel.fromMap(json))
         .toList();
 
     return photos;
+  }
+
+  @override
+  Future<List<MemoryModel>> getUserMemories({
+    int offset = 0,
+    int limit = 10,
+  }) async {
+    final supabase = getIt<SupabaseClient>();
+    final user = supabase.auth.currentUser;
+    final int start = offset * limit;
+    final int end = start + limit - 1;
+    final data = await supabase
+        .from('memories')
+        .select()
+        .eq('u_id', user?.id ?? '')
+        .order('created_at', ascending: false)
+        .range(start, end);
+    final records = data as List<dynamic>;
+    final List<MemoryModel> memories = records
+        .map((photoData) => MemoryModel.fromMap(photoData))
+        .toList();
+
+    for (final memory in memories) {
+      final photos = await getMemoryPhotos(memory.memoryId);
+      memory.photos.addAll(photos);
+    }
+    return memories;
   }
 }

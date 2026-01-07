@@ -15,4 +15,5 @@ abstract class MemoriesRepo {
     String visibility = "public",
     required LatLng position,
   });
+  Future<List<MemoryModel>> getUserMemories({int offset = 0, int limit = 10});
 }
