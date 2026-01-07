@@ -11,6 +11,7 @@ import 'package:mapory/features/profile/data/repo/images_repo_impl.dart';
 import 'package:mapory/features/profile/data/repo/user_photos_repo.dart';
 import 'package:mapory/features/profile/data/repo/user_photos_repo_impl.dart';
 import 'package:meta/meta.dart';
+import 'package:uuid/uuid.dart';
 
 part 'photos_state.dart';
 
@@ -49,8 +50,9 @@ class PhotosCubit extends Cubit<PhotosState> {
       final List<String> urls = [];
       emit(PhotosUploading());
       for (int i = 0; i < photos.length; i++) {
+        final fileName = const Uuid().v4();
         String url = await imagesRepo.uploadImage(
-          "${DateTime.now()}-${i}",
+          fileName,
           photos[i],
           "photos",
         );
