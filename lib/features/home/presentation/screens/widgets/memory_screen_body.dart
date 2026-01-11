@@ -20,10 +20,15 @@ class MemoryScreenBody extends StatelessWidget {
   Widget build(BuildContext context) {
     int currentIndex = 0;
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         MemoryUserInfo(memory: memory),
         PhotoSlider(memory: memory),
         DotIndicator(memory: memory, currentIndex: currentIndex),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(memory.caption, style: Styles.textStyle18),
+        ),
       ],
     );
   }

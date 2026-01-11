@@ -74,12 +74,12 @@ abstract class AppRouter {
           final memory = state.extra as MemoryModel;
           return MultiBlocProvider(
             providers: [
-              BlocProvider<SliderCubit>(create: (context) => SliderCubit()),
               BlocProvider<ExternalUserCubit>(
                 create: (context) =>
                     ExternalUserCubit(getIt<UserRepoImpl>())
                       ..fetchUserData(userId: memory.userId),
               ),
+              BlocProvider<SliderCubit>(create: (context) => SliderCubit()),
             ],
             child: MemoryScreen(memory: memory),
           );

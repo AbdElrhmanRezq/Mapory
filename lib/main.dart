@@ -73,3 +73,4 @@ class Mapory extends StatelessWidget {
 //Convert Photo screen to be memory screen
 //Infinite scroll for memories and photos
 //Public and private stuff
+//Public Profile memories

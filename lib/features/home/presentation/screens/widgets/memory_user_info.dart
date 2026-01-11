@@ -72,7 +72,7 @@ class MemoryUserInfo extends StatelessWidget {
               ],
             );
           } else {
-            return SizedBox.shrink();
+            return Text(memory.userId, style: Styles.textStyle16);
           }
         },
       ),
