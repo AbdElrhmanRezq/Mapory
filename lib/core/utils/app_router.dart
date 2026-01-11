@@ -72,8 +72,15 @@ abstract class AppRouter {
         path: kMemoryScreenRoute,
         builder: (context, state) {
           final memory = state.extra as MemoryModel;
-          return BlocProvider(
-            create: (context) => SliderCubit(),
+          return MultiBlocProvider(
+            providers: [
+              BlocProvider<SliderCubit>(create: (context) => SliderCubit()),
+              BlocProvider<ExternalUserCubit>(
+                create: (context) =>
+                    ExternalUserCubit(getIt<UserRepoImpl>())
+                      ..fetchUserData(userId: memory.userId),
+              ),
+            ],
             child: MemoryScreen(memory: memory),
           );
         },
