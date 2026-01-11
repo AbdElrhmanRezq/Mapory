@@ -12,7 +12,7 @@ import 'package:mapory/features/profile/presentation/screens/widgets/go_back_but
 import 'package:mapory/features/profile/presentation/screens/widgets/info_bar.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/user_name.dart';
-import 'package:mapory/features/profile/presentation/screens/widgets/user_photos.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/user_memories.dart';
 
 class ProfileScreenBody extends StatelessWidget {
   const ProfileScreenBody({
@@ -68,7 +68,7 @@ class ProfileScreenBody extends StatelessWidget {
                           BackgroundImage(user: user, height: height),
                           Container(
                             color: KMainBackground,
-                            height: height * 0.1,
+                            height: height * 0.07,
                           ),
                         ],
                       ),
@@ -92,12 +92,12 @@ class ProfileScreenBody extends StatelessWidget {
                     },
                   ),
                   SizedBox(height: 10),
-                  InfoBar(
-                    likesCount: state.likesCount,
-                    photosCount: state.memoriesCount,
-                  ),
+                  // InfoBar(
+                  //   likesCount: state.likesCount,
+                  //   photosCount: state.memoriesCount,
+                  // ),
                   //SizedBox(height: 10),
-                  UserMemories(totalPhotos: state.memoriesCount),
+                  UserMemories(totalMemories: state.memoriesCount),
                 ],
               ),
             ),
@@ -119,17 +119,14 @@ class EditBackgroundButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
-      child: IconButton(
-        onPressed: () async {
-          await BlocProvider.of<UserImagesCubit>(
-            context,
-          ).uploadUserImage('background_image');
-          await BlocProvider.of<UserDataCubit>(context).fetchUserData();
-        },
-        icon: Icon(Icons.edit, color: KMainColor),
-      ),
+    return IconButton(
+      onPressed: () async {
+        await BlocProvider.of<UserImagesCubit>(
+          context,
+        ).uploadUserImage('background_image');
+        await BlocProvider.of<UserDataCubit>(context).fetchUserData();
+      },
+      icon: Icon(Icons.edit, color: KMainColor),
     );
   }
 }

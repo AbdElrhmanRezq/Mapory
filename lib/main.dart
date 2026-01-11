@@ -52,7 +52,7 @@ class Mapory extends StatelessWidget {
         title: 'Mapory',
         debugShowCheckedModeBanner: false,
         theme: ThemeData().copyWith(
-          scaffoldBackgroundColor: Color(0xFFf1f4f9),
+          scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255),
           iconTheme: IconThemeData(color: KMainColor),
           textTheme: GoogleFonts.exoTextTheme().apply(
             bodyColor: Color(0xFF464747),

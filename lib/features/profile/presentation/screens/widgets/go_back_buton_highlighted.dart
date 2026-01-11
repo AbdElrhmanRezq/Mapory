@@ -8,14 +8,11 @@ class GoBackButtonHighlighted extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CircleAvatar(
-      backgroundColor: Color.fromRGBO(181, 181, 181, 0.3),
-      child: IconButton(
-        onPressed: () {
-          GoRouter.of(context).pop();
-        },
-        icon: Icon(Icons.arrow_back_ios_new, color: KMainColor),
-      ),
+    return IconButton(
+      onPressed: () {
+        GoRouter.of(context).pop();
+      },
+      icon: Icon(Icons.arrow_back_ios_new, color: KMainColor),
     );
   }
 }

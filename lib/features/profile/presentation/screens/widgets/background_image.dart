@@ -15,11 +15,21 @@ class BackgroundImage extends StatelessWidget {
     return Container(
       height: height * 0.3,
       width: double.infinity,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(cacheFix(user.backgroundImage)),
-          fit: BoxFit.cover,
-        ),
+      decoration: const BoxDecoration(),
+      child: Stack(
+        fit: StackFit.expand,
+        children: [
+          Image.network(cacheFix(user.backgroundImage), fit: BoxFit.cover),
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.white38, Colors.transparent],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

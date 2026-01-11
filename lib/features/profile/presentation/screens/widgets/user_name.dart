@@ -18,7 +18,7 @@ class UserName extends StatelessWidget {
         children: [
           Text(
             '${state.userData.username} ',
-            style: Styles.textStyle20.copyWith(
+            style: Styles.textStyle30.copyWith(
               color: KMainColor,
               fontWeight: FontWeight.bold,
             ),

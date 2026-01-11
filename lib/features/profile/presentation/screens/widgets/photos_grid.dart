@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mapory/consts.dart';
 import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/styles.dart';
 import 'package:mapory/features/home/data/models/memory_model.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/profile/presentation/cubit/user_photos_cubit/user_photos_cubit.dart';
 
-class PhotosGrid extends StatelessWidget {
-  const PhotosGrid({
+class MemoriesGrid extends StatelessWidget {
+  const MemoriesGrid({
     super.key,
     required this.totalMemories,
     required this.memories,
@@ -32,11 +33,6 @@ class PhotosGrid extends StatelessWidget {
           ? memories.length + 1
           : memories.length,
       itemBuilder: (context, index) {
-        ////////////////////////////////////
-        ////  The next checks are for
-        ////  adding the load more
-        ////  photos button
-        ////////////////////////////////////
         if (totalMemories > memories.length) {
           if (index != (memories.length)) {
             return Image.network(
@@ -67,12 +63,40 @@ class PhotosGrid extends StatelessWidget {
                 context,
               ).push(AppRouter.kPhotoRoute, extra: memories[index].photos[0]);
             },
-            child: Hero(
-              tag: memories[index].photos[0].id,
-              child: Image.network(
-                memories[index].photos[0].imageUrl,
-                fit: BoxFit.cover,
-              ),
+            child: Stack(
+              children: [
+                Hero(
+                  tag: memories[index].photos[0].id,
+                  child: Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: NetworkImage(memories[index].photos[0].imageUrl),
+                        fit: BoxFit.cover,
+                      ),
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                  ),
+                ),
+                Container(
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [Colors.black26, Colors.transparent],
+                    ),
+                  ),
+                ),
+                if (memories[index].photos.length > 1)
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Icon(
+                      Icons.collections,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                  ),
+              ],
             ),
           );
         }

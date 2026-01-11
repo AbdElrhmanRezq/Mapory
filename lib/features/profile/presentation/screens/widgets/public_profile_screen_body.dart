@@ -8,7 +8,7 @@ import 'package:mapory/features/profile/presentation/screens/widgets/background_
 import 'package:mapory/features/profile/presentation/screens/widgets/go_back_buton_highlighted.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/info_bar.dart';
 import 'package:mapory/features/profile/presentation/screens/widgets/profile_image.dart';
-import 'package:mapory/features/profile/presentation/screens/widgets/user_photos.dart';
+import 'package:mapory/features/profile/presentation/screens/widgets/user_memories.dart';
 
 class PublicProfileScreenBody extends StatelessWidget {
   final UserModel user;
@@ -33,7 +33,7 @@ class PublicProfileScreenBody extends StatelessWidget {
                           BackgroundImage(user: user, height: height),
                           Container(
                             color: KMainBackground,
-                            height: height * 0.1,
+                            height: height * 0.07,
                           ),
                         ],
                       ),
@@ -43,22 +43,27 @@ class PublicProfileScreenBody extends StatelessWidget {
                         child: GoBackButtonHighlighted(),
                       ),
 
-                      ProfileImage(height: height, width: width, user: user),
+                      ProfileImage(
+                        height: height,
+                        width: width,
+                        user: user,
+                        isPublic: true,
+                      ),
                     ],
                   ),
                   Text(
                     state.userData.username,
-                    style: Styles.textStyle20.copyWith(
+                    style: Styles.textStyle30.copyWith(
                       color: KMainColor,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
                   SizedBox(height: 10),
-                  InfoBar(
-                    likesCount: state.likesCount,
-                    photosCount: state.memoriesCount,
-                  ),
-                  UserMemories(totalPhotos: state.memoriesCount),
+                  // InfoBar(
+                  //   likesCount: state.likesCount,
+                  //   photosCount: state.memoriesCount,
+                  // ),
+                  UserMemories(totalMemories: state.memoriesCount),
                 ],
               ),
             ),

@@ -9,8 +9,8 @@ import 'package:mapory/features/profile/presentation/cubit/user_photos_cubit/use
 import 'package:mapory/features/profile/presentation/screens/widgets/photos_grid.dart';
 
 class UserMemories extends StatelessWidget {
-  final int totalPhotos;
-  const UserMemories({super.key, required this.totalPhotos});
+  final int totalMemories;
+  const UserMemories({super.key, required this.totalMemories});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,10 @@ class UserMemories extends StatelessWidget {
               List<MemoryModel> photos = BlocProvider.of<UserMemoriesCubit>(
                 context,
               ).memories;
-              return PhotosGrid(totalMemories: totalPhotos, memories: photos);
+              return MemoriesGrid(
+                totalMemories: totalMemories,
+                memories: photos,
+              );
             } else {
               return Center(child: CircularProgressIndicator());
             }
