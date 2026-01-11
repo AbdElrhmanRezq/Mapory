@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mapory/core/utils/app_router.dart';
 import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/features/home/data/models/memory_model.dart';
@@ -45,7 +47,7 @@ class MapCubit extends Cubit<MapState> {
     }
   }
 
-  Future<void> getCurrentLocation() async {
+  Future<void> getCurrentLocation({bool isButtonPressed = false}) async {
     final position = await Geolocator.getCurrentPosition(
       locationSettings: const LocationSettings(accuracy: LocationAccuracy.high),
     );
@@ -57,18 +59,20 @@ class MapCubit extends Cubit<MapState> {
       _moveCamera(location);
       _didMoveCameraInitially = true;
     }
+    if (isButtonPressed) {
+      _moveCamera(location);
+    }
 
-    Set<Marker> updatedMarkers = await updateMemories(location);
+    await updateMemories(location);
 
     _startTracking();
   }
 
-  Future<Set<Marker>> updateMemories(LatLng location) async {
+  Future<void> updateMemories(LatLng location) async {
     memories.addAll(
       await memoriesRepo
           .getMemories(userId: '', position: location, range: 100)
           .then((value) {
-            print(value);
             return value;
           }),
     );
@@ -80,11 +84,13 @@ class MapCubit extends Cubit<MapState> {
           position: LatLng(memory.lat, memory.lng),
           icon: icon,
           infoWindow: InfoWindow(title: memory.caption),
+          onTap: () {
+            emit(state.copyWith(selectedMemory: memory));
+          },
         ),
       ),
     };
     emit(state.copyWith(markers: updatedMarkers));
-    return updatedMarkers;
   }
 
   void _startTracking() {

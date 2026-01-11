@@ -13,7 +13,9 @@ class HomeFloatingActionButton extends StatelessWidget {
       builder: (context, state) {
         return FloatingActionButton(
           onPressed: () async {
-            await context.read<MapCubit>().getCurrentLocation();
+            await context.read<MapCubit>().getCurrentLocation(
+              isButtonPressed: true,
+            );
           },
           backgroundColor: KMainBackground,
           child: Icon(Icons.my_location, color: KMainColor),

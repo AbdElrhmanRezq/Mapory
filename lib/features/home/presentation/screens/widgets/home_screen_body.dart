@@ -22,32 +22,43 @@ class HomeScreenBodyState extends State<HomeScreenBody> {
         return Scaffold(
           body: Stack(
             children: [
-              GoogleMap(
-                zoomControlsEnabled: false,
-                myLocationButtonEnabled: false,
-                style: state.mapStyle,
-                myLocationEnabled: state.permissionGranted,
-                initialCameraPosition: CameraPosition(
-                  target: const LatLng(30.0444, 31.2357),
-                  zoom: context.read<MapCubit>().zoom,
-                ),
-                markers: state.markers,
-                onMapCreated: (controller) {
-                  context.read<MapCubit>().setController(controller);
-                },
-                onLongPress: (LatLng position) {
-                  GoRouter.of(
-                    context,
-                  ).push(AppRouter.kCreateMemoryRoute, extra: position);
-                },
-                onCameraMove: (position) {
-                  context.read<MapCubit>().currentLocation = position.target;
-                },
-                onCameraIdle: () {
-                  context.read<MapCubit>().updateMemories(
-                    context.read<MapCubit>().currentLocation,
+              BlocListener<MapCubit, MapState>(
+                listenWhen: (prev, curr) =>
+                    prev.selectedMemory != curr.selectedMemory &&
+                    curr.selectedMemory != null,
+                listener: (context, state) {
+                  context.push(
+                    AppRouter.kMemoryScreenRoute,
+                    extra: state.selectedMemory,
                   );
                 },
+                child: GoogleMap(
+                  zoomControlsEnabled: false,
+                  myLocationButtonEnabled: false,
+                  style: state.mapStyle,
+                  myLocationEnabled: state.permissionGranted,
+                  initialCameraPosition: CameraPosition(
+                    target: const LatLng(30.0444, 31.2357),
+                    zoom: context.read<MapCubit>().zoom,
+                  ),
+                  markers: state.markers,
+                  onMapCreated: (controller) {
+                    context.read<MapCubit>().setController(controller);
+                  },
+                  onLongPress: (LatLng position) {
+                    GoRouter.of(
+                      context,
+                    ).push(AppRouter.kCreateMemoryRoute, extra: position);
+                  },
+                  onCameraMove: (position) {
+                    context.read<MapCubit>().currentLocation = position.target;
+                  },
+                  onCameraIdle: () {
+                    context.read<MapCubit>().updateMemories(
+                      context.read<MapCubit>().currentLocation,
+                    );
+                  },
+                ),
               ),
               ProfileButton(),
             ],
