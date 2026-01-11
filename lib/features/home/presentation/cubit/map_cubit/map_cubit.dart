@@ -14,12 +14,14 @@ import 'package:permission_handler/permission_handler.dart';
 
 class MapCubit extends Cubit<MapState> {
   final MemoriesRepo memoriesRepo = getIt.get<MemoriesRepo>();
-  final List<MemoryModel> memories = [];
+  final Set<MemoryModel> memories = {};
   MapCubit() : super(const MapState());
   double zoom = 18;
   StreamSubscription<Position>? _positionStream;
   GoogleMapController? mapController;
   late BitmapDescriptor icon;
+  LatLng currentLocation = const LatLng(0, 0);
+  bool _didMoveCameraInitially = false;
 
   Future<void> init(BuildContext context) async {
     await _loadMapStyle();
@@ -51,7 +53,17 @@ class MapCubit extends Cubit<MapState> {
     final location = LatLng(position.latitude, position.longitude);
     emit(state.copyWith(currentLocation: location, isLoading: false));
 
-    _moveCamera(location);
+    if (!_didMoveCameraInitially) {
+      _moveCamera(location);
+      _didMoveCameraInitially = true;
+    }
+
+    Set<Marker> updatedMarkers = await updateMemories(location);
+
+    _startTracking();
+  }
+
+  Future<Set<Marker>> updateMemories(LatLng location) async {
     memories.addAll(
       await memoriesRepo
           .getMemories(userId: '', position: location, range: 100)
@@ -71,10 +83,8 @@ class MapCubit extends Cubit<MapState> {
         ),
       ),
     };
-
     emit(state.copyWith(markers: updatedMarkers));
-
-    _startTracking();
+    return updatedMarkers;
   }
 
   void _startTracking() {
@@ -86,7 +96,6 @@ class MapCubit extends Cubit<MapState> {
         ).listen((position) {
           final location = LatLng(position.latitude, position.longitude);
           emit(state.copyWith(currentLocation: location));
-          _moveCamera(location);
         });
   }
 

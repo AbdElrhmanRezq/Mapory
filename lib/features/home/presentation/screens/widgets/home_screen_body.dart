@@ -40,6 +40,14 @@ class HomeScreenBodyState extends State<HomeScreenBody> {
                     context,
                   ).push(AppRouter.kCreateMemoryRoute, extra: position);
                 },
+                onCameraMove: (position) {
+                  context.read<MapCubit>().currentLocation = position.target;
+                },
+                onCameraIdle: () {
+                  context.read<MapCubit>().updateMemories(
+                    context.read<MapCubit>().currentLocation,
+                  );
+                },
               ),
               ProfileButton(),
             ],

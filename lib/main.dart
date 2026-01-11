@@ -66,3 +66,11 @@ class Mapory extends StatelessWidget {
     );
   }
 }
+
+
+//ToDo
+//Map zooming and moving loading memories
+//Update the UI
+//Convert Photo screen to be memory screen
+//Infinite scroll for memories and photos
+//Public and private stuff
