@@ -6,8 +6,5 @@ abstract class CommentsRepo {
     int limit = 10,
     int offset = 0,
   });
-  Future<void> addComment({
-    required String memoryId,
-    required CommentModel comment,
-  });
+  Future<void> addComment({required String memoryId, required String text});
 }

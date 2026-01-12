@@ -7,14 +7,14 @@ class CommentsRepoImpl implements CommentsRepo {
   @override
   Future<void> addComment({
     required String memoryId,
-    required CommentModel comment,
+    required String text,
   }) async {
     final SupabaseClient supabase = getIt<SupabaseClient>();
 
     await supabase.from('comments').insert({
       'm_id': memoryId,
-      'u_id': comment.uId,
-      'text': comment.text,
+      'u_id': supabase.auth.currentUser!.id,
+      'text': text,
     });
   }
 

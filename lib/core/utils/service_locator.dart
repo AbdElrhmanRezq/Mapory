@@ -5,6 +5,8 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:mapory/core/utils/assets.dart';
 import 'package:mapory/core/utils/image_helper.dart';
 import 'package:mapory/features/auth/data/repo/auth_repo_impl.dart';
+import 'package:mapory/features/home/data/repo/comments_repo.dart';
+import 'package:mapory/features/home/data/repo/comments_repo_impl.dart';
 import 'package:mapory/features/home/data/repo/memories_repo.dart';
 import 'package:mapory/features/home/data/repo/memories_repo_impl.dart';
 import 'package:mapory/features/profile/data/repo/images_repo_impl.dart';
@@ -23,4 +25,5 @@ void setup() async {
   getIt.registerSingleton<ImageCropper>(ImageCropper());
   getIt.registerSingleton<UserPhotosRepoImpl>(UserPhotosRepoImpl());
   getIt.registerSingleton<MemoriesRepo>(MemoriesRepoImpl());
+  getIt.registerSingleton<CommentsRepo>(CommentsRepoImpl());
 }
