@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mapory/consts.dart';
+import 'package:mapory/core/utils/service_locator.dart';
 import 'package:mapory/features/home/data/models/memory_model.dart';
+import 'package:mapory/features/home/presentation/cubit/comments_cubit/comments_cubit.dart';
 import 'package:mapory/features/home/presentation/cubit/user_comment_cubit/user_comment_cubit.dart';
+import 'package:mapory/features/profile/data/models/user_model.dart';
+import 'package:mapory/features/profile/data/repo/user_repo_impl.dart';
+import 'package:mapory/features/profile/presentation/cubit/user_data_cubit/user_data_cubit.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
 class CommentTextField extends StatelessWidget {
   const CommentTextField({super.key, required this.memory});
@@ -11,7 +17,7 @@ class CommentTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserCommentCubit, UserCommentState>(
+    return BlocConsumer<UserCommentCubit, UserCommentState>(
       builder: (context, state) {
         return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -37,6 +43,11 @@ class CommentTextField extends StatelessWidget {
             ),
           ),
         );
+      },
+      listener: (context, state) async {
+        if (state is UserCommentSent) {
+          (context).read<CommentsCubit>().addComment(state.comment);
+        }
       },
     );
   }

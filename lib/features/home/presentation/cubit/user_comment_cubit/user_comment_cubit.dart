@@ -13,11 +13,11 @@ class UserCommentCubit extends Cubit<UserCommentState> {
   Future<void> addComment({required String memoryId}) async {
     try {
       emit(UserCommentSending());
-      await commentsRepo.addComment(
+      final CommentModel comment = await commentsRepo.addComment(
         memoryId: memoryId,
         text: commentController.text,
       );
-      emit(UserCommentSent());
+      emit(UserCommentSent(comment: comment));
       await Future.delayed(Duration(seconds: 2));
       commentController.clear();
       emit(UserCommentInitial());

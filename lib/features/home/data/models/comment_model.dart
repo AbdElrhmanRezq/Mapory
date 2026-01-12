@@ -3,23 +3,32 @@ class CommentModel {
   final DateTime createdAt;
   final String uId;
   final String mId;
-  final String? text;
+  final String text;
+  final String userName;
+  final String userProfilePic;
 
   CommentModel({
     required this.cId,
     required this.createdAt,
     required this.uId,
     required this.mId,
-    this.text,
+    required this.text,
+    required this.userName,
+    required this.userProfilePic,
   });
 
   factory CommentModel.fromJson(Map<String, dynamic> json) {
+    final user = json['users'] as Map<String, dynamic>?;
+
     return CommentModel(
       cId: json['c_id'] as String,
       createdAt: DateTime.parse(json['created_at']),
       uId: json['u_id'] as String,
       mId: json['m_id'] as String,
       text: json['text'],
+      userName: user?['username'] ?? 'Unknown',
+      userProfilePic:
+          user?['profile_image'] ?? 'https://example.com/profile.jpg',
     );
   }
 
@@ -30,6 +39,8 @@ class CommentModel {
       'u_id': uId,
       'm_id': mId,
       'text': text,
+      'username': userName,
+      'profile_image': userProfilePic,
     };
   }
 
@@ -43,6 +54,8 @@ class CommentModel {
     String? uId,
     String? mId,
     String? text,
+    String? userName,
+    String? userProfilePic,
   }) {
     return CommentModel(
       cId: cId ?? this.cId,
@@ -50,6 +63,8 @@ class CommentModel {
       uId: uId ?? this.uId,
       mId: mId ?? this.mId,
       text: text ?? this.text,
+      userName: userName ?? this.userName,
+      userProfilePic: userProfilePic ?? this.userProfilePic,
     );
   }
 }

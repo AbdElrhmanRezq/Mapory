@@ -10,6 +10,7 @@ import 'package:mapory/features/auth/presentation/screens/signup_screen.dart';
 import 'package:mapory/features/home/data/models/memory_model.dart';
 import 'package:mapory/features/home/data/models/photo_model.dart';
 import 'package:mapory/features/home/data/repo/comments_repo.dart';
+import 'package:mapory/features/home/presentation/cubit/comments_cubit/comments_cubit.dart';
 import 'package:mapory/features/home/presentation/cubit/photos_cubit/photos_cubit.dart';
 import 'package:mapory/features/home/presentation/cubit/slider_cubit/slider_cubit.dart';
 import 'package:mapory/features/home/presentation/cubit/user_comment_cubit/user_comment_cubit.dart';
@@ -84,6 +85,11 @@ abstract class AppRouter {
               BlocProvider<SliderCubit>(create: (context) => SliderCubit()),
               BlocProvider<UserCommentCubit>(
                 create: (context) => UserCommentCubit(getIt<CommentsRepo>()),
+              ),
+              BlocProvider<CommentsCubit>(
+                create: (context) =>
+                    CommentsCubit(getIt<CommentsRepo>())
+                      ..fetchComments(memoryId: memory.memoryId),
               ),
             ],
             child: MemoryScreen(memory: memory),

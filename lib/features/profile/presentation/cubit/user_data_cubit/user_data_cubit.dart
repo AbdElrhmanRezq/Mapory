@@ -7,16 +7,16 @@ part 'user_data_state.dart';
 
 class UserDataCubit extends Cubit<UserDataState> {
   final UserRepo userRepo;
+
   UserDataCubit(this.userRepo) : super(UserDataInitial());
   Future<void> fetchUserData() async {
     emit(UserDataLoading());
     final result = await userRepo.getUserData();
     final memoriesCount = await userRepo.getUserMemoriesCount();
     final likesCount = await userRepo.getLikesCount();
-    result.fold(
-      (failure) => emit(UserDataError(failure.message)),
-      (userData) => emit(UserDataLoaded(userData, memoriesCount, likesCount)),
-    );
+    result.fold((failure) => emit(UserDataError(failure.message)), (userData) {
+      emit(UserDataLoaded(userData, memoriesCount, likesCount));
+    });
   }
 
   Future<void> changeUserName(String newName) async {
